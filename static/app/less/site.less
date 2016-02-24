@@ -1,8 +1,27 @@
 @footer-height: 40px;
 @wca-logo-size: 20px;
+@navbar-height: 50px;
 html,
 body {
     height: 100%;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+td.rank {
+    position: relative;
+    .vertical-center;
+
+    .region-anchor {
+        position: absolute;
+        top: -(@navbar-height + 2);
+    }
+}
+
+.vertical-center {
+    vertical-align: middle !important;
 }
 
 .wrap {
@@ -12,7 +31,7 @@ body {
     padding: 0 0 @footer-height;
 
     >.container {
-        padding: 70px 15px 20px;
+        padding: (@navbar-height + 20) 15px 20px;
     }
 }
 
@@ -23,6 +42,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
     .copyright {
         font-variant: small-caps;
     }

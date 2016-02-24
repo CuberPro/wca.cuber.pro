@@ -52,18 +52,22 @@ $this->title = Yii::t('app', 'Kinch Rank - Continents');
     </thead>
     <tbody>
       <?php $rank = ''; $count = 0; $lastScore = -1.00; ?>
-      <?php foreach ($regionList as $region): 
+      <?php foreach ($regionList as $id => $region): 
         ++$count;
         $rank = $region['scores']['overall'] == $lastScore ? '' : $count;
         $lastScore = $region['scores']['overall']; ?>
       <tr>
-        <td class="text-right" style="vertical-align: middle;"><?= $rank ?></td>
-        <td class="text-left" style="vertical-align: middle;"><strong><?= Yii::t('region', $region['name']) ?></strong></td>
-        <td class="text-center level-<?= $region['scores']['overall'] == 0.0 ? 'none' : intval($region['scores']['overall'] / 10) ?>" style="vertical-align: middle;">
+
+        <td class="text-right rank">
+          <a href="#" class="region-anchor" name="<?= $id ?>"></a>
+          <?= $rank ?>
+        </td>
+        <td class="text-left vertical-center"><strong><?= Yii::t('region', $region['name']) ?></strong></td>
+        <td class="text-center vertical-center level-<?= $region['scores']['overall'] == 0.0 ? 'none' : intval($region['scores']['overall'] / 10) ?>">
           <strong><?= sprintf('%.2f', $region['scores']['overall']) ?></strong>
         </td>
         <?php foreach ($eventList as $event): ?>
-        <td class="text-center level-<?= $region['scores'][$event] == 0.0 ? 'none' : intval($region['scores'][$event] / 10) ?>" style="vertical-align: middle;"><small><?= sprintf('%.2f', $region['scores'][$event]) ?></small></td>
+        <td class="text-center vertical-center level-<?= $region['scores'][$event] == 0.0 ? 'none' : intval($region['scores'][$event] / 10) ?>"><small><?= sprintf('%.2f', $region['scores'][$event]) ?></small></td>
         <?php endforeach; ?>
       </tr>
       <?php endforeach; ?>

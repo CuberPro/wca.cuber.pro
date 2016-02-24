@@ -5,8 +5,6 @@ namespace app\controllers;
 use Yii;
 use app\controllers\base\BaseController;
 use app\models\Persons;
-use app\models\Results;
-use app\models\Events;
 use app\models\Competitions;
 
 class PersonController extends BaseController
@@ -30,18 +28,20 @@ class PersonController extends BaseController
         $r = Yii::$app->request;
         $personId = $r->get('i');
         $person = Persons::getPerson($personId, true);
-        $singles = [];
         $pbs = [];
+        $oprs = [];
         if (!empty($person)) {
-            $pbs = Persons::getOldestStandingPersonalRecords($personId);
-            foreach ($pbs as &$pb) {
-                $pb['best'] = Results::formatTime($pb['best'], $pb['eventId']);
-                $pb['average'] = Results::formatTime($pb['average'], $pb['eventId']);
-                $pb['eventName'] = Events::getCellName($pb['eventId']);
-                $pb['days'] = Competitions::dateDiff($pb, ['year' => date('Y'), 'month' => date('m'), 'day' => date('d')]);
+            $pbs = Persons::getPersonalRecords($personId);
+            $oprs = Persons::getOldestStandingPersonalRecords($personId);
+            foreach ($oprs as &$opr) {
+                $opr['days'] = Competitions::dateDiff($opr, ['year' => date('Y'), 'month' => date('m'), 'day' => date('d')]);
             }
-            unset($pb);
+            unset($opr);
         }
-        return $this->render('profile', ['person' => $person, 'pbs' => $pbs]);
+        return $this->render('profile', [
+            'person' => $person,
+            'oprs' => $oprs,
+            'pbs' => $pbs,
+        ]);
     }
 }

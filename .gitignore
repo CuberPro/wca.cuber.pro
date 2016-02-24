@@ -12,4 +12,5 @@
 !/static
 !/views
 !/web
+!/widgets
 !*.md

@@ -58,6 +58,7 @@ class Persons extends \yii\db\ActiveRecord
                 'p.name',
                 'p.id',
                 'p.gender',
+                'countryId' => 'p.countryId',
                 'country' => 'c.name',
                 'p.subid'])
             ->from(['p' => 'Persons'])
@@ -86,6 +87,39 @@ class Persons extends \yii\db\ActiveRecord
             ->orderBy('p.name')
         ->all();
         return $persons;
+    }
+
+    public static function getPersonalRecords($personId) {
+        $singles = (new Query())
+            ->select([
+                'r.eventId',
+                'r.best',
+                'r.worldRank',
+                'r.continentRank',
+                'r.countryRank'])
+            ->from(['r' => 'RanksSingle'])
+            ->leftJoin(['e' => 'Events'], 'r.eventId=e.id')
+            ->where(['personId' => $personId])
+            ->orderBy(['e.rank' => SORT_ASC])
+        ->all();
+        $averages = (new Query())
+            ->select([
+                'eventId',
+                'best',
+                'worldRank',
+                'continentRank',
+                'countryRank'])
+            ->from('RanksAverage')
+            ->where(['personId' => $personId])
+        ->all();
+        $results = [];
+        foreach ($singles as $single) {
+            $results[$single['eventId']]['s'] = $single;
+        }
+        foreach ($averages as $average) {
+            $results[$average['eventId']]['a'] = $average;
+        }
+        return $results;
     }
 
     public static function getOldestStandingPersonalRecords($personId) {
