@@ -1,0 +1,5 @@
+!.gitignore
+*.zip
+log/
+last
+my.cnf

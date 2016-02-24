@@ -1,0 +1,14 @@
+/*
+._*
+!.gitignore
+!/assets
+!/commands
+!/composer.json
+!/config
+!/controllers
+!/messages
+!/models
+!/runtime
+!/static
+!/views
+!/web
