@@ -306,9 +306,9 @@ INSERT INTO `KinchScores` (`personId`, `countryId`, `continentId`, `gender`, `ev
 -- Temporary table storing every WRs
 DROP TABLE IF EXISTS `WR`;
 CREATE TEMPORARY TABLE IF NOT EXISTS `WR`
-  SELECT `eventId`, `best`, 'a' AS `type` FROM `RanksAverage` WHERE `worldRank`=1 GROUP BY `eventId`
+  SELECT `eventId`, `best`, 'a' AS `type` FROM `RanksAverage` WHERE `worldRank`=1 GROUP BY `eventId`, `best`
   UNION
-  SELECT `eventId`, `best`, 's' AS `type` FROM `RanksSingle` WHERE `worldRank`=1 GROUP BY `eventId`;
+  SELECT `eventId`, `best`, 's' AS `type` FROM `RanksSingle` WHERE `worldRank`=1 GROUP BY `eventId`, `best`;
 
 ALTER TABLE `WR` ADD KEY `eventId` (`eventId`), ADD KEY `type` (`type`);
 
@@ -348,7 +348,7 @@ CREATE TEMPORARY TABLE IF NOT EXISTS `gWR`
   SELECT `eventId`, `best`, `type`, `gender`
     FROM `RanksGender`
     WHERE `worldRank`=1
-    GROUP BY `eventId`,`gender`,`type`;
+    GROUP BY `eventId`,`gender`,`type`, `best`;
 ALTER TABLE `gWR` ADD KEY `eventId` (`eventId`), ADD KEY `gender` (`gender`), ADD KEY `type` (`type`);
 
 -- Averages, 333fm and 333bf scores here are temporary, might be replaced by single scores later
@@ -388,13 +388,13 @@ CREATE TEMPORARY TABLE IF NOT EXISTS `CR`
     FROM `RanksAverage` AS `rk`
     LEFT JOIN `Persons` AS `p` ON `rk`.`personId`=`p`.`id` AND `p`.`subid`=1
     LEFT JOIN `Countries` AS `cy` ON `p`.`countryId`=`cy`.`id`
-    WHERE `rk`.`continentRank`=1 GROUP BY `continentId`, `eventId`
+    WHERE `rk`.`continentRank`=1 GROUP BY `continentId`, `eventId`, `best`
   UNION
   SELECT `cy`.`continentId`, `rk`.`eventId`, `rk`.`best`, 's' AS `type`
     FROM `RanksSingle` AS `rk`
     LEFT JOIN `Persons` AS `p` ON `rk`.`personId`=`p`.`id` AND `p`.`subid`=1
     LEFT JOIN `Countries` AS `cy` ON `p`.`countryId`=`cy`.`id`
-    WHERE `rk`.`continentRank`=1 GROUP BY `continentId`, `eventId`;
+    WHERE `rk`.`continentRank`=1 GROUP BY `continentId`, `eventId`, `best`;
 
 ALTER TABLE `CR` ADD KEY `eventId` (`eventId`), ADD KEY `continentId` (`continentId`), ADD KEY `type` (`type`);
 
@@ -436,7 +436,7 @@ CREATE TEMPORARY TABLE IF NOT EXISTS `gCR`
     LEFT JOIN `Persons` AS `p` ON `rk`.`personId`=`p`.`id` AND `p`.`subid`=1
     LEFT JOIN `Countries` AS `cy` ON `p`.`countryId`=`cy`.`id`
     WHERE `rk`.`continentRank`=1
-    GROUP BY `cy`.`continentId`,`rk`.`eventId`,`rk`.`gender`,`rk`.`type`;
+    GROUP BY `cy`.`continentId`,`rk`.`eventId`,`rk`.`gender`,`rk`.`type`, `best`;
 ALTER TABLE `gCR` ADD KEY `eventId` (`eventId`), ADD KEY `gender` (`gender`), ADD KEY `continentId` (`continentId`), ADD KEY `type` (`type`);
 
 -- Averages, 333fm and 333bf scores here are temporary, might be replaced by single scores later
@@ -475,12 +475,12 @@ CREATE TEMPORARY TABLE IF NOT EXISTS `NR`
   SELECT `p`.`countryId`, `rk`.`eventId`, `rk`.`best`, 'a' AS `type`
     FROM `RanksAverage` AS `rk`
     LEFT JOIN `Persons` AS `p` ON `rk`.`personId`=`p`.`id` AND `p`.`subid`=1
-    WHERE `rk`.`countryRank`=1 GROUP BY `countryId`, `eventId`
+    WHERE `rk`.`countryRank`=1 GROUP BY `countryId`, `eventId`, `best`
   UNION
   SELECT `p`.`countryId`, `rk`.`eventId`, `rk`.`best`, 's' AS `type`
     FROM `RanksSingle` AS `rk`
     LEFT JOIN `Persons` AS `p` ON `rk`.`personId`=`p`.`id` AND `p`.`subid`=1
-    WHERE `rk`.`countryRank`=1 GROUP BY `countryId`, `eventId`;
+    WHERE `rk`.`countryRank`=1 GROUP BY `countryId`, `eventId`, `best`;
 
 ALTER TABLE `NR` ADD KEY `eventId` (`eventId`), ADD KEY `countryId` (`countryId`), ADD KEY `type` (`type`);
 
@@ -521,7 +521,7 @@ CREATE TEMPORARY TABLE IF NOT EXISTS `gNR`
     FROM `RanksGender` AS `rk`
     LEFT JOIN `Persons` AS `p` ON `rk`.`personId`=`p`.`id` AND `p`.`subid`=1
     WHERE `rk`.`countryRank`=1
-    GROUP BY `p`.`countryId`,`rk`.`eventId`,`rk`.`gender`,`rk`.`type`;
+    GROUP BY `p`.`countryId`,`rk`.`eventId`,`rk`.`gender`,`rk`.`type`, `best`;
 ALTER TABLE `gNR` ADD KEY `eventId` (`eventId`), ADD KEY `gender` (`gender`), ADD KEY `countryId` (`countryId`), ADD KEY `type` (`type`);
 
 -- Averages, 333fm and 333bf scores here are temporary, might be replaced by single scores later

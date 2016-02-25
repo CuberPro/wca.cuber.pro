@@ -1,5 +1,6 @@
 !.gitignore
 *.zip
+WCA_export*
 log/
 last
 my.cnf

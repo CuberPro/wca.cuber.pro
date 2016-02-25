@@ -8,8 +8,19 @@ staticPage='export.html'
 localDir=`pwd`/
 last=$localDir/last
 [ -e $last ] && lastFileName=`cat $last` || lastFileName='aa'
-fileName=`curl -k --compressed $baseUrl$staticPage 2>/dev/null|grep -oP 'WCA_export\d+_\d{8}\.sql\.zip'|head -1`
-rm -f $localDir/WCA_export*_`date --date='15 days ago' +%Y%m%d`.sql.zip
+
+sysType=`uname | grep -i darwin`
+if [ -z $sysType ]
+then
+    grep=grep
+    date=date
+else
+    grep=ggrep
+    date=gdate
+fi
+
+fileName=`curl -k --compressed $baseUrl$staticPage 2>/dev/null|$grep -oP 'WCA_export\d+_\d{8}\.sql\.zip'|head -1`
+rm -f $localDir/WCA_export*_`$date --date='15 days ago' +%Y%m%d`.sql.zip
 
 if [ -z $fileName ] || [[ $lastFileName = $fileName ]]
 then
