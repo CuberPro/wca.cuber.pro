@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 use app\models\Persons;
 
@@ -8,7 +9,7 @@ $this->title = Yii::t('app', 'Persons');
 
 ?>
 <div class="col-md-offset-2 col-md-8">
-  <?= Html::beginForm('/persons', 'get', ['class' => 'form form-inline']) ?>
+  <?= Html::beginForm(Url::to(['']), 'get', ['class' => 'form form-inline']) ?>
     <div class="form-group">
       <label for="query"><?= Yii::t('app', 'Name parts or WCA ID'); ?></label>
       <input id="query" class="form-control required" type="text" name="query">

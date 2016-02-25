@@ -36,15 +36,33 @@ td.rank {
 }
 
 .footer {
+    position: relative;
     height: @footer-height;
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
+
+    .container {
+        position: absolute;
+        @media (max-width: 767px) {
+            width: 100%;
+            font-size: 0.9em;
+        }
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
     .copyright {
         font-variant: small-caps;
+        padding-right: 10px;
+    }
+
+    .last-update {
+        padding-left: 10px;
     }
 }
 

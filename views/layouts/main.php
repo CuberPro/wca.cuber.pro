@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
 use app\widgets\bootstrap\Nav;
@@ -22,6 +23,7 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <?= Url::toRoute(['']) ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -38,9 +40,9 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => Yii::t('app', 'Home'), 'url' => Yii::$app->homeUrl],
-            ['label' => Yii::t('app', 'Persons'), 'url' => ['/persons']],
-            ['label' => Yii::t('app', 'Kinch'), 'items' => [
+            ['label' => Yii::t('app', 'Home'), 'active' => Url::to('') === '/' , 'url' => [Yii::$app->homeUrl]],
+            ['label' => Yii::t('app', 'Persons'), 'active' => in_array(Url::to(''), ['/persons', '/person']), 'url' => ['/persons']],
+            ['label' => Yii::t('app', 'Kinch'), 'active' => substr(Url::to(''), 0, 6) === '/kinch', 'items' => [
                 ['label' => Yii::t('app', 'Countries'), 'url' => ['/kinch/countries']],
                 ['label' => Yii::t('app', 'Continents'), 'url' => ['/kinch/continents']],
             ]],
@@ -61,7 +63,7 @@ AppAsset::register($this);
     <div class="container">
         <span class="pull-left copyright">&copy; Cuber.Pro <?= date('Y') ?></span>
 
-        <span class="pull-right"><?= Yii::t('app', 'Last Update: ') ?>
+        <span class="pull-right last-update"><?= Yii::t('app', 'Last Update: ') ?>
             <a href="https://www.worldcubeassociation.org/results/misc/export.html" target="_blank">
                 <span><?= @file_get_contents(Yii::$app->getBasePath() . '/commands/shell/wca_db/last') ?></span>
             </a>
