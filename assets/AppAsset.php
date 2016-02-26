@@ -18,6 +18,7 @@ class AppAsset extends AssetBundle
     ];
     public $depends = [
         'app\assets\bootstrap\CssAsset',
+        'app\assets\bootstrap\JsAsset',
         'app\assets\jquery\JqueryAsset',
     ];
     public $publishOptions = [
