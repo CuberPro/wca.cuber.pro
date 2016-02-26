@@ -29,7 +29,6 @@ class PersonController extends BaseController
         $personId = $r->get('i');
         $person = Persons::getPerson($personId, true);
         $pbs = [];
-        $oprs = [];
         if (!empty($person)) {
             $pbs = Persons::getPersonalRecords($personId);
             foreach ($pbs as &$event) {
@@ -39,15 +38,9 @@ class PersonController extends BaseController
                 }
             }
             unset($event);
-            $oprs = Persons::getOldestStandingPersonalRecords($personId);
-            foreach ($oprs as &$opr) {
-                $opr['days'] = Competitions::dateDiff($opr, ['year' => date('Y'), 'month' => date('m'), 'day' => date('d')]);
-            }
-            unset($opr);
         }
         return $this->render('profile', [
             'person' => $person,
-            'oprs' => $oprs,
             'pbs' => $pbs,
         ]);
     }
