@@ -1,6 +1,7 @@
 @footer-height: 40px;
 @wca-logo-size: 20px;
 @navbar-height: 50px;
+@pr-color: #f60;
 html,
 body {
     height: 100%;
@@ -8,6 +9,21 @@ body {
 
 body {
     background-color: #f4f4f4;
+}
+
+.personal-record {
+    color: @pr-color;
+    font-weight: bold;
+    &.very-long {
+        color: darken(@pr-color, 15%);
+    }
+}
+
+.ranking {
+    &.top10 {
+        font-weight: bold;
+        color: @pr-color;
+    }
 }
 
 td.rank {
@@ -21,7 +37,10 @@ td.rank {
 }
 
 .vertical-center {
-    vertical-align: middle !important;
+    th,
+    td {
+        vertical-align: middle !important;
+    }
 }
 
 .wrap {

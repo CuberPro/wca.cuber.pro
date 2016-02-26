@@ -14,21 +14,18 @@ use yii\db\Query;
  * @property string $countryId
  * @property string $gender
  */
-class Persons extends \yii\db\ActiveRecord
-{
+class Persons extends \yii\db\ActiveRecord {
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'Persons';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['subid'], 'integer'],
             [['id'], 'string', 'max' => 10],
@@ -41,8 +38,7 @@ class Persons extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'subid' => 'Subid',
@@ -92,31 +88,67 @@ class Persons extends \yii\db\ActiveRecord
     public static function getPersonalRecords($personId) {
         $singles = (new Query())
             ->select([
-                'r.eventId',
-                'r.best',
-                'r.worldRank',
-                'r.continentRank',
-                'r.countryRank'])
-            ->from(['r' => 'RanksSingle'])
-            ->leftJoin(['e' => 'Events'], 'r.eventId=e.id')
-            ->where(['personId' => $personId])
+                'rk.eventId',
+                'rk.best',
+                'rk.worldRank',
+                'rk.continentRank',
+                'rk.countryRank',
+                'competitionId' => 'c.id',
+                'competitionName' => 'c.cellName',
+                'c.year',
+                'c.month',
+                'c.day',
+            ])
+            ->from(['rk' => 'RanksSingle'])
+            ->leftJoin(['r' => 'Results'], [
+                'AND',
+                '`rk`.`eventId`=`r`.`eventId`',
+                '`rk`.`personId`=`r`.`personId`',
+                '`rk`.`best`=`r`.`best`',
+            ])
+            ->leftJoin(['c' => 'Competitions'], '`r`.`competitionId`=`c`.`id`')
+            ->leftJoin(['e' => 'Events'], '`rk`.`eventId`=`e`.`id`')
+            ->where(['rk.personId' => $personId])
             ->orderBy(['e.rank' => SORT_ASC])
         ->all();
         $averages = (new Query())
             ->select([
-                'eventId',
-                'best',
-                'worldRank',
-                'continentRank',
-                'countryRank'])
-            ->from('RanksAverage')
-            ->where(['personId' => $personId])
+                'rk.eventId',
+                'rk.best',
+                'rk.worldRank',
+                'rk.continentRank',
+                'rk.countryRank',
+                'competitionId' => 'c.id',
+                'competitionName' => 'c.cellName',
+                'c.year',
+                'c.month',
+                'c.day',
+            ])
+            ->from(['rk' => 'RanksAverage'])
+            ->leftJoin(['r' => 'Results'], [
+                'AND',
+                '`rk`.`eventId`=`r`.`eventId`',
+                '`rk`.`personId`=`r`.`personId`',
+                '`rk`.`best`=`r`.`average`',
+            ])
+            ->leftJoin(['c' => 'Competitions'], '`r`.`competitionId`=`c`.`id`')
+            ->where(['rk.personId' => $personId])
         ->all();
         $results = [];
         foreach ($singles as $single) {
+            if (isset($results[$single['eventId']]['s'])) {
+                if (Competitions::dateDiff($single, $results[$single['eventId']]['s'], false) > 0) {
+                    continue;
+                }
+            }
             $results[$single['eventId']]['s'] = $single;
         }
         foreach ($averages as $average) {
+            if (isset($results[$average['eventId']]['a'])) {
+                if (Competitions::dateDiff($average, $results[$average['eventId']]['a'], false) > 0) {
+                    continue;
+                }
+            }
             $results[$average['eventId']]['a'] = $average;
         }
         return $results;
@@ -146,7 +178,8 @@ class Persons extends \yii\db\ActiveRecord
                 'competitionName' => 'c.cellName',
                 'c.year',
                 'c.month',
-                'c.day'])
+                'c.day'
+            ])
             ->from(['b' => $singles->union($averages)])
             ->leftJoin(['r' => 'Results'], [
                 'AND',
