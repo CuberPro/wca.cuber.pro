@@ -1,6 +1,7 @@
 @footer-height: 40px;
 @wca-logo-size: 20px;
 @navbar-height: 50px;
+@container-padding-side: 15px;
 @pr-color: #f60;
 @font-latin: "Helvetica Neue", Helvetica, Arial;
 @font-zh-cn: "Hiragino Sans GB", STXihei, "Microsoft YaHei";
@@ -25,6 +26,12 @@ html {
     &[lang=zh-TW] body {
         font-family: @font-latin, @font-zh-tw, sans-serif;
     }
+}
+
+#formLang {
+    position: absolute;
+    right: @container-padding-side;
+    top: @navbar-height - 10;
 }
 
 .personal-record {
@@ -66,7 +73,8 @@ td.rank {
     padding: 0 0 @footer-height;
 
     >.container {
-        padding: (@navbar-height + 20) 15px 20px;
+        padding: (@navbar-height + 20) @container-padding-side 20px;
+        position: relative;
     }
 }
 

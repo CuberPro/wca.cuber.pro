@@ -4,3 +4,6 @@ $('#kinchGender').on('change', function() {
 	}
 });
 $('[data-toggle=tooltip]').tooltip();
+$('#selectLang').on('change', function() {
+	$('#formLang').submit();
+});

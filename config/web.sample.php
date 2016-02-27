@@ -49,6 +49,7 @@ $config = [
         ],
         'db' => require(__DIR__ . '/db.php'),
     ],
+    'language' => array_keys(require(__DIR__ . '/lang.php'))[0],
     'params' => $params,
     'defaultRoute' => 'kinch/countries',
 ];
