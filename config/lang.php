@@ -1,3 +1,3 @@
 <?php
-return ['en-US', 'zh-CN'];
+return ['en-US', 'zh-CN', 'zh-TW'];
 
