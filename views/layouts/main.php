@@ -52,10 +52,12 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= $content ?>
+      <?= Html::beginForm(Url::to(['lang']), 'post', ['id' => 'formLang', 'class' => 'form form-inline']) ?>
+      <select name="lang" id="selectLang">
+        <?= Html::renderSelectOptions(Yii::$app->request->cookies->getValue('lang', 'en-US'), require(Yii::getAlias('@app/config/lang.php'))) ?>
+      </select>
+      <?= Html::endForm() ?>
+      <?= $content ?>
     </div>
 </div>
 
