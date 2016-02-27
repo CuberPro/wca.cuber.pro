@@ -1,3 +1,4 @@
+SET CHARACTER SET utf8;
 --
 -- Indexes for table `Competitions`
 --
