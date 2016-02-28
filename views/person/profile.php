@@ -29,7 +29,7 @@ else:
         <tr <?= $i > 0 ? 'class="text-muted"' : '' ?>>
           <td><?php if ($i == 0): ?>
             <a target="_blank" href="https://www.worldcubeassociation.org/results/p.php?i=<?= $person[$i]['id'] ?>">
-              <img src="/img/WCAlogo_notext.svg" class="wca-logo" title="WCA" alt="WCA"><?= $person[$i]['id'] ?>
+              <img src="/img/wca_logo.png" class="wca-logo" title="WCA" alt="WCA"><?= $person[$i]['id'] ?>
             </a>
           <?php else: ?>
             <em><?=Yii::t('app', '(was)') ?></em>
@@ -37,7 +37,8 @@ else:
           <td><?= $person[$i]['name'] ?></td>
           <td>
             <a href="/kinch/countries#<?= $person[$i]['countryId'] ?>">
-              <?= Yii::t('region', $person[$i]['country']) ?>
+              <i class="flag flag-<?= strtolower($person[$i]['countryCode']) ?>"></i>
+              <span><?= Yii::t('region', $person[$i]['country']) ?></span>
             </a>
           </td>
           <td><?= Yii::t('app', Persons::getGenderName($person[$i]['gender'])) ?></td>

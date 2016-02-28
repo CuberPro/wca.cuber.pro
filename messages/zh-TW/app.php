@@ -49,5 +49,5 @@ return [
     'WCA Statistics' => 'WCA數據統計',
     'World' => '世界',
     '{count,plural,=1{# person} other{# persons}} matching: "{query}"' => '{count,plural,=0{沒有人} other{#個人}}符合：“{query}”',
-    '{days,plural,=1{# day ago} =0{Today} other{# days ago}}' => '{days,plural,=0{今天} other{#天前}}',
+    '{days,plural,=1{# day ago} =0{Today} other{# days ago}}' => '{days,plural,=0{今天} other{{days,number,0}天前}}',
 ];

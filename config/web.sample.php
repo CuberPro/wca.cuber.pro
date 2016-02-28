@@ -36,7 +36,7 @@ $config = [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            // 'errorAction' => 'site/error',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

@@ -17,8 +17,7 @@ class AppAsset extends AssetBundle
         'js/main.js',
     ];
     public $depends = [
-        'app\assets\bootstrap\CssAsset',
-        'app\assets\bootstrap\JsAsset',
+        'app\assets\bootstrap\BootstrapAsset',
         'app\assets\jquery\JqueryAsset',
     ];
     public $publishOptions = [

@@ -98,6 +98,7 @@ class KinchScores extends \yii\db\ActiveRecord
             ->select([
                 'k.countryId',
                 'cy.name',
+                'code' => 'cy.iso2',
                 'k.eventId',
                 'score' => 'MAX(`k`.`' . $scoreColumn . '`)'])
             ->from(['k' => 'KinchScores'])
@@ -121,6 +122,7 @@ class KinchScores extends \yii\db\ActiveRecord
             if (!isset($countryScores[$country['countryId']])) {
                 $countryScores[$country['countryId']] = [
                     'name' => $country['name'],
+                    'code' => $country['code'],
                     'scores' => $eventList,
                 ];
             }

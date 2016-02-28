@@ -6,6 +6,13 @@
 @font-latin: "Helvetica Neue", Helvetica, Arial;
 @font-zh-cn: "Hiragino Sans GB", STXihei, "Microsoft YaHei";
 @font-zh-tw: "Heiti TC", STXihei, "Microsoft JhengHei", "Microsoft YaHei";
+
+@import "country";
+
+.font-lang(@lang) {
+    @final: "font-@{lang}";
+    font-family: @font-latin, @@final, sans-serif;
+}
 html,
 body {
     height: 100%;
@@ -18,13 +25,25 @@ body {
 
 html {
     &[lang^=zh] body {
-        font-family: @font-latin, @font-zh-cn, sans-serif;
+        .font-lang('zh-cn');
     }
     &[lang=zh-CN] body {
-        font-family: @font-latin, @font-zh-cn, sans-serif;
+        .font-lang('zh-cn');
     }
     &[lang=zh-TW] body {
-        font-family: @font-latin, @font-zh-tw, sans-serif;
+        .font-lang('zh-tw');
+    }
+}
+
+thead th {
+    white-space: nowrap;
+}
+
+td.region-name {
+    word-break: keep-all;
+    white-space: nowrap;
+    span {
+        white-space: normal;
     }
 }
 
@@ -93,9 +112,7 @@ td.rank {
         top: 50%;
         left: 50%;
         -webkit-transform: translate(-50%, -50%);
-        -moz-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
-        -o-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
     }
 
@@ -115,6 +132,10 @@ td.rank {
 
 .level-none {
     color: #b4bcc2;
+}
+
+tr.text-muted a {
+    color: #777;
 }
 
 .wca-logo {
