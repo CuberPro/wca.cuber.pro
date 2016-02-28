@@ -31,7 +31,11 @@ $this->title = Yii::t('app', 'Persons');
         <?php foreach ($persons as $person): ?>
           <tr>
             <td><a href="/person/<?= $person['id'] ?>"><?= $person['name'] ?></a></td>
-            <td><a target="_blank" href="https://www.worldcubeassociation.org/results/p.php?i=<?= $person['id'] ?>"><?= $person['id'] ?></a></td>
+            <td>
+              <a target="_blank" href="https://www.worldcubeassociation.org/results/p.php?i=<?= $person['id'] ?>">
+                <img src="/img/WCAlogo_notext.svg" class="wca-logo" title="WCA" alt="WCA"><?= $person['id'] ?>
+              </a>
+            </td>
             <td><?= Yii::t('region', $person['country']) ?></td>
             <td><?= Persons::getGenderName($person['gender']) ?></td>
           </tr>

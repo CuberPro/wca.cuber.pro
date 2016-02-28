@@ -36,7 +36,7 @@ $this->title = Yii::t('app', 'Kinch Rank - Continents');
     ]) ?>
   </select>
 </div>
-<?php if ($type== 'country'): ?><?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn-primary']) ?><?php endif; ?>
+<?php if ($type== 'country'): ?><?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?><?php endif; ?>
 <?= Html::endForm() ?>
 <div class="table-responsive">
   <table class="table table-condensed table-bordered vertical-center">
@@ -62,7 +62,7 @@ $this->title = Yii::t('app', 'Kinch Rank - Continents');
           <a href="#" class="region-anchor" name="<?= $id ?>"></a>
           <?= $rank ?>
         </td>
-        <td class="text-left"><strong><?= Yii::t('region', $region['name']) ?></strong></td>
+        <td class="text-left region-name"><strong><?= Yii::t('region', $region['name']) ?></strong></td>
         <td class="text-center level-<?= $region['scores']['overall'] == 0.0 ? 'none' : intval($region['scores']['overall'] / 10) ?>">
           <strong><?= sprintf('%.2f', $region['scores']['overall']) ?></strong>
         </td>
