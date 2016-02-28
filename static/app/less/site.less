@@ -6,6 +6,9 @@
 @font-latin: "Helvetica Neue", Helvetica, Arial;
 @font-zh-cn: "Hiragino Sans GB", STXihei, "Microsoft YaHei";
 @font-zh-tw: "Heiti TC", STXihei, "Microsoft JhengHei", "Microsoft YaHei";
+
+@import "country";
+
 .font-lang(@lang) {
     @final: "font-@{lang}";
     font-family: @font-latin, @@final, sans-serif;
@@ -38,6 +41,10 @@ thead th {
 
 td.region-name {
     word-break: keep-all;
+    white-space: nowrap;
+    span {
+        white-space: normal;
+    }
 }
 
 #formLang {

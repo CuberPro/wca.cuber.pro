@@ -33,10 +33,13 @@ $this->title = Yii::t('app', 'Persons');
             <td><a href="/person/<?= $person['id'] ?>"><?= $person['name'] ?></a></td>
             <td>
               <a target="_blank" href="https://www.worldcubeassociation.org/results/p.php?i=<?= $person['id'] ?>">
-                <img src="/img/WCAlogo_notext.svg" class="wca-logo" title="WCA" alt="WCA"><?= $person['id'] ?>
+                <img src="/img/wca_logo.png" class="wca-logo" title="WCA" alt="WCA"><?= $person['id'] ?>
               </a>
             </td>
-            <td><?= Yii::t('region', $person['country']) ?></td>
+            <td>
+              <i class="flag flag-<?= strtolower($person['countryCode']) ?>"></i>
+              <span><?= Yii::t('region', $person['country']) ?></span>
+            </td>
             <td><?= Persons::getGenderName($person['gender']) ?></td>
           </tr>
         <?php endforeach; ?>

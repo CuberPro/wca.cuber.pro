@@ -62,7 +62,12 @@ $this->title = Yii::t('app', 'Kinch Rank - Continents');
           <a href="#" class="region-anchor" name="<?= $id ?>"></a>
           <?= $rank ?>
         </td>
-        <td class="text-left region-name"><strong><?= Yii::t('region', $region['name']) ?></strong></td>
+        <th class="text-left region-name">
+          <?php if ($type == 'country'): ?>
+          <i class="flag flag-<?= strtolower($region['code']) ?>"></i>
+          <?php endif; ?>
+          <span><?= Yii::t('region', $region['name']) ?></span>
+        </th>
         <td class="text-center level-<?= $region['scores']['overall'] == 0.0 ? 'none' : intval($region['scores']['overall'] / 10) ?>">
           <strong><?= sprintf('%.2f', $region['scores']['overall']) ?></strong>
         </td>

@@ -55,8 +55,10 @@ class Persons extends \yii\db\ActiveRecord {
                 'p.id',
                 'p.gender',
                 'countryId' => 'p.countryId',
+                'countryCode' => 'c.iso2',
                 'country' => 'c.name',
-                'p.subid'])
+                'p.subid',
+            ])
             ->from(['p' => 'Persons'])
             ->leftJoin(['c' => 'Countries'], '`p`.`countryId`=`c`.`id`')
             ->where(['p.id' => $id])
@@ -75,7 +77,9 @@ class Persons extends \yii\db\ActiveRecord {
                 'p.name',
                 'p.id',
                 'p.gender',
-                'country' => 'c.name'])
+                'country' => 'c.name',
+                'countryCode' => 'c.iso2',
+            ])
             ->from(['p' => 'Persons'])
             ->leftJoin(['c' => 'Countries'], '`p`.`countryId`=`c`.`id`')
             ->where(['like', 'p.name', $queries])
