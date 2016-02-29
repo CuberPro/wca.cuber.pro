@@ -54,7 +54,8 @@ AppAsset::register($this);
     <div class="container">
       <?= Html::beginForm(Url::to(['lang']), 'post', ['id' => 'formLang', 'class' => 'form form-inline']) ?>
       <select name="lang" id="selectLang">
-        <?= Html::renderSelectOptions(Yii::$app->request->cookies->getValue('lang', 'en-US'), require(Yii::getAlias('@app/config/lang.php'))) ?>
+        <?php $providingLanguages = require(Yii::getAlias('@app/config/lang.php')); ?>
+        <?= Html::renderSelectOptions(Yii::$app->request->cookies->getValue('lang', Yii::$app->language), $providingLanguages) ?>
       </select>
       <?= Html::endForm() ?>
       <?= $content ?>

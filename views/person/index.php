@@ -31,12 +31,12 @@ $this->title = Yii::t('app', 'Persons');
         <?php foreach ($persons as $person): ?>
           <tr>
             <td><a href="/person/<?= $person['id'] ?>"><?= $person['name'] ?></a></td>
-            <td>
+            <td class="nowrap">
               <a target="_blank" href="https://www.worldcubeassociation.org/results/p.php?i=<?= $person['id'] ?>">
                 <img src="/img/wca_logo.png" class="wca-logo" title="WCA" alt="WCA"><?= $person['id'] ?>
               </a>
             </td>
-            <td>
+            <td class="nowrap">
               <i class="flag flag-<?= strtolower($person['countryCode']) ?>"></i>
               <span><?= Yii::t('region', $person['country']) ?></span>
             </td>
