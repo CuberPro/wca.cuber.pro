@@ -36,12 +36,17 @@ html {
 }
 
 thead th {
+    .nowrap;
+}
+
+.nowrap {
     white-space: nowrap;
 }
 
-.region-name {
+.region-name,
+.person-name {
     word-break: keep-all;
-    white-space: nowrap;
+    .nowrap;
     span {
         white-space: normal;
     }

@@ -15,8 +15,9 @@ class PersonController extends BaseController
         $r = Yii::$app->request;
         $query = trim($r->get('query', ''));
         $persons = Persons::queryByIDOrName($query);
-        if (count($persons) == 1) {
-            $this->redirect(['/person/' . $persons[0]['id']]);
+        $wcaids = array_unique(array_column($persons, 'id'));
+        if (count($wcaids) == 1) {
+            $this->redirect(['/person/' . $wcaids[0]]);
         }
         return $this->render('index', [
             'persons' => $persons,

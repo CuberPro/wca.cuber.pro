@@ -14,7 +14,7 @@ else:
 ?>
 <h1 class="text-center"><?= $person[0]['name']; ?></h1>
 <section class="clearfix">
-  <div class="col-md-8 col-md-offset-2 table-responsive">
+  <div class="col-md-10 col-md-offset-1 table-responsive">
     <table class="table table-condensed" id="personalDetails">
       <thead>
         <tr class="info">

@@ -14,23 +14,21 @@ use Yii;
  * @property integer $longitude
  * @property integer $zoom
  */
-class Continents extends \yii\db\ActiveRecord
-{
+class Continents extends \yii\db\ActiveRecord {
 
     const CONTINENTS_LIST_CACHE_KEY = 'wca_continents_list';
+    
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'Continents';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['latitude', 'longitude', 'zoom'], 'integer'],
             [['id', 'name'], 'string', 'max' => 50],
@@ -41,8 +39,7 @@ class Continents extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'name' => 'Name',
@@ -57,7 +54,7 @@ class Continents extends \yii\db\ActiveRecord
         $c = Yii::$app->cache;
         $continentList = $c->get(self::CONTINENTS_LIST_CACHE_KEY);
         if ($continentList === false) {
-            $continentList = self::find()->all();
+            $continentList = self::find()->orderBy('name')->all();
             $c->set(self::CONTINENTS_LIST_CACHE_KEY, $continentList);
         }
         return $continentList;
