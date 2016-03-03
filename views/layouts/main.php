@@ -43,6 +43,7 @@ AppAsset::register($this);
             ['label' => Yii::t('app', 'Home'), 'active' => Url::to('') === '/' , 'url' => [Yii::$app->homeUrl]],
             ['label' => Yii::t('app', 'Persons'), 'active' => in_array(Url::to(''), ['/persons', '/person']), 'url' => ['/persons']],
             ['label' => Yii::t('app', 'Kinch'), 'active' => substr(Url::to(''), 0, 6) === '/kinch', 'items' => [
+                ['label' => Yii::t('app', 'Persons'), 'url' => ['/kinch/persons']],
                 ['label' => Yii::t('app', 'Countries'), 'url' => ['/kinch/countries']],
                 ['label' => Yii::t('app', 'Continents'), 'url' => ['/kinch/continents']],
             ]],
