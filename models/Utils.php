@@ -15,7 +15,7 @@ class Utils {
 		return self::$coll;
 	}
 
-	public static function translateAndSort(array $data, string $property, string $translateCategory, bool $reverse = false) {
+	public static function translateAndSort($data, $property, $translateCategory, $reverse = false) {
 		array_walk($data, function(&$x, $k) use ($property, $translateCategory){
 			$x[$property] = Yii::t($translateCategory, $x[$property]);
 		});
