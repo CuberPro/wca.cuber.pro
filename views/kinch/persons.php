@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use app\models\Continents;
 use app\models\Countries;
 use app\models\KinchScores;
+use app\models\Utils;
 
 $this->title = Yii::t('app', 'Kinch Rank - Persons');
 ?>
@@ -17,15 +18,17 @@ $this->title = Yii::t('app', 'Kinch Rank - Persons');
       <?php
       $selected = Yii::$app->request->get('regionId');
       $continents = Continents::getContinents();
+      $continents = Utils::translateAndSort($continents, 'name', 'region');
       foreach ($continents as $continent): ?>
-      <option value="<?= $continent['id'] ?>" <?= $continent['id'] == $selected ? 'selected' : '' ?>><?= Yii::t('region', $continent['name']); ?></option>
+      <option value="<?= $continent['id'] ?>" <?= $continent['id'] == $selected ? 'selected' : '' ?>><?= $continent['name'] ?></option>
       <?php endforeach; ?>
     </optgroup>
     <optgroup label="<?= Yii::t('app', 'Countries') ?>">
       <?php
       $countries = Countries::getCountries();
+      $countries = Utils::translateAndSort($countries, 'name', 'region');
       foreach ($countries as $country): ?>
-      <option value="<?= $country['id'] ?>" <?= $country['id'] == $selected ? 'selected' : '' ?>><?= Yii::t('region', $country['name']); ?></option>
+      <option value="<?= $country['id'] ?>" <?= $country['id'] == $selected ? 'selected' : '' ?>><?= $country['name'] ?></option>
       <?php endforeach; ?>
     </optgroup>
   </select>

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\Continents;
+use app\models\Utils;
 
 $this->title = Yii::t('app', 'Kinch Rank - Continents');
 ?>
@@ -18,8 +19,9 @@ $this->title = Yii::t('app', 'Kinch Rank - Continents');
       <?php
       $selected = Yii::$app->request->get('regionId');
       $continents = Continents::getContinents();
+      $continents = Utils::translateAndSort($continents, 'name', 'region');
       foreach ($continents as $continent): ?>
-      <option value="<?= $continent['id'] ?>" <?= $continent['id'] == $selected ? 'selected' : '' ?>><?= Yii::t('region', $continent['name']); ?></option>
+      <option value="<?= $continent['id'] ?>" <?= $continent['id'] == $selected ? 'selected' : '' ?>><?= $continent['name'] ?></option>
       <?php endforeach; ?>
     </optgroup>
   </select>
