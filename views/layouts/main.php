@@ -40,9 +40,9 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => Yii::t('app', 'Home'), 'active' => Url::to('') === '/' , 'url' => [Yii::$app->homeUrl]],
-            ['label' => Yii::t('app', 'Persons'), 'active' => in_array(Url::to(''), ['/persons', '/person']), 'url' => ['/persons']],
-            ['label' => Yii::t('app', 'Kinch'), 'active' => substr(Url::to(''), 0, 6) === '/kinch', 'items' => [
+            ['label' => Yii::t('app', 'Home'), 'active' => preg_replace('/\?.*/', '', Url::to('')) === '/' , 'url' => [Yii::$app->homeUrl]],
+            ['label' => Yii::t('app', 'Persons'), 'active' => in_array(preg_replace(['/\?.*/', '/(?<=\/person)\/.*/'], '', Url::to('')), ['/persons', '/person']), 'url' => ['/persons']],
+            ['label' => Yii::t('app', 'Kinch'), 'active' => preg_replace(['/\?.*/', '/(?<=\/kinch)\/.*/'], '', Url::to('')) === '/kinch', 'items' => [
                 ['label' => Yii::t('app', 'Persons'), 'url' => ['/kinch/persons']],
                 ['label' => Yii::t('app', 'Countries'), 'url' => ['/kinch/countries']],
                 ['label' => Yii::t('app', 'Continents'), 'url' => ['/kinch/continents']],
@@ -56,7 +56,7 @@ AppAsset::register($this);
       <?= Html::beginForm(Url::to(['lang']), 'post', ['id' => 'formLang', 'class' => 'form form-inline']) ?>
       <select name="lang" id="selectLang">
         <?php $providingLanguages = require(Yii::getAlias('@app/config/lang.php')); ?>
-        <?= Html::renderSelectOptions(Yii::$app->request->cookies->getValue('lang', Yii::$app->language), $providingLanguages) ?>
+        <?= Html::renderSelectOptions(Yii::$app->language, $providingLanguages) ?>
       </select>
       <?= Html::endForm() ?>
       <?= $content ?>

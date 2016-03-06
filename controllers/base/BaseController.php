@@ -4,6 +4,7 @@ namespace app\controllers\base;
 
 use Yii;
 use yii\web\Cookie;
+use yii\helpers\Url;
 
 class BaseController extends \yii\web\Controller {
 
@@ -19,7 +20,26 @@ class BaseController extends \yii\web\Controller {
 			$lang = array_keys($providingLanguages)[0];
 		}
 		$this->setLang($lang);
-		$this->redirect(isset($r->referrer) ? $r->referrer : Yii::$app->homeUrl);
+		if (isset($r->referrer)) {
+			$url = parse_url($r->referrer);
+			$path = isset($url['path']) ? $url['path'] : null;
+			$query = isset($url['query']) ? $url['query'] : null;
+			if (!isset($path)) {
+				$this->redirect(Yii::$app->homeUrl);
+				return;
+			}
+			if (!isset($query)) {
+				$this->redirect($r->referrer);
+				return;
+			}
+			parse_str($query, $query);
+			unset($query['lang']);
+			$path = array_merge([$path], $query);
+			$this->redirect(Url::to($path));
+			return;
+		} else {
+			$this->redirect(Yii::$app->homeUrl);
+		}
 	}
 
 	private function setLang($lang, $setCookie = true) {
