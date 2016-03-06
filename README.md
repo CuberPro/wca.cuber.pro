@@ -11,3 +11,7 @@ still under development...
 ## Installation
 
 See [INSTALL.md](INSTALL.md)
+
+## Credits
+
+Japanese translation by _Xiaoxia Yang_

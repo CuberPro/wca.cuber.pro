@@ -1,6 +1,7 @@
 <?php
 return [
-    'en-US' => 'English - USA',
+    'en-US' => 'English - United States',
     'zh-CN' => '简体中文 - 中国大陆',
-    'zh-TW' => '正體中文 - 臺灣',
+    'zh-TW' => '繁體中文 - 台灣',
+    'ja-JP' => '日本語 - 日本',
 ];
