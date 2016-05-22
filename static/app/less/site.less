@@ -83,6 +83,22 @@ td.rank {
     }
 }
 
+@keyframes warning {
+    0% {
+        background-color: #fcf8e3;
+    }
+    50% {
+        background-color: #ffaa33;
+    }
+}
+
+tr.warning {
+    >td,
+    >th {
+        animation: warning .6s;
+    }
+}
+
 .vertical-center {
     th,
     td {
