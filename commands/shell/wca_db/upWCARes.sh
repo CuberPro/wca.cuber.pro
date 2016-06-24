@@ -34,7 +34,7 @@ fi
 dbConfig="$localDir/../../../config/wcaDb"
 dbNum=`expr \( \`cat $dbConfig\` + 1 \) % 2`
 dbName="wca_$dbNum"
-dbConf=$localDir/my.cnf
+dbConf=`[[ -f $localDir/my.local.cnf ]] && echo $localDir/my.local.cnf || echo $localDir/my.cnf`
 sqlName='WCA_export.sql'
 additionalSqlName='additional.sql'
 yii=$localDir/../../../yii
@@ -42,6 +42,6 @@ yii=$localDir/../../../yii
 unzip -qq -o $fileName $sqlName || exit
 cat $sqlName $additionalSqlName | mysql --defaults-extra-file=$dbConf $dbName || exit
 echo $fileName > $last
-echo -n $dbNum > $dbConfig
+echo $dbNum > $dbConfig
 $yii cache/flush-all
 rm $localDir/$sqlName

@@ -18,7 +18,7 @@ $config = [
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'oNpYMmFupCKzW6hAxa5sUoVbvNYYmhfy',
+            'cookieValidationKey' => require(is_file(__DIR__ . '/cookie.local.php') ? __DIR__ . '/cookie.local.php' : __DIR__ . '/cookie.php'),
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -47,7 +47,7 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
+        'db' => require(is_file(__DIR__ . '/db.local.php') ? __DIR__ . '/db.local.php' : __DIR__ . '/db.php'),
     ],
     'language' => array_keys(require(__DIR__ . '/lang.php'))[0],
     'params' => $params,
@@ -59,13 +59,13 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
-        'allowedIPs' => ['127.0.0.1', '::1']
+        'allowedIPs' => ['127.0.0.1', '::1', gethostbyname($_SERVER['HTTP_HOST'])]
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        'allowedIPs' => ['127.0.0.1', '::1']
+        'allowedIPs' => ['127.0.0.1', '::1', gethostbyname($_SERVER['HTTP_HOST'])]
     ];
 }
 

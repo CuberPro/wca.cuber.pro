@@ -1,6 +1,1 @@
-/*
-!.gitignore
-!index.php
-!robots.txt
-!/assets/
-!/img/
+*.dev.*
