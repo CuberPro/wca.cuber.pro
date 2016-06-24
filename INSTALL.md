@@ -175,16 +175,16 @@ It should compile the source files into `dist` directory.
 
 ### Configurations
 
-To protect some private credentials, I have made three of the configure files with a `sample` in its name, which should be copied/renamed to the proper name to work.
+To protect some private credentials, it is highly recommended to have a 'local copy' of some config files. In this project, there are three.
 
- - First one is `config/web.sample.php`, rename it to `web.php` should work, but it is highly recommended that you use another key for `cookieValidationKey`;
- - Another one is `config/db.sample.php`, rename it to `db.php`, it has the credentials for the database, so configure it according to your own situation;
- - The final one is `commands/shell/wca_db/my.sample.cnf`, rename it to `my.cnf`, it is used for the update script, similar to `db.php`.
+ - First one is `config/cookie.php`, copy it to `cookie.local.php` and add some random string to its content, this is used by  `cookieValidationKey`;
+ - Another one is `config/db.php`, copy it to `db.local.php`, it has the credentials for the database, so configure it according to your own situation;
+ - The final one is `commands/shell/wca_db/my.cnf`, copy it to `my.local.cnf`, it is used for the update script, similar to `db.php`.
 
 Finally you have to run the following command in the `config` directory to create the `wcaDb` file: 
 
 ```bash
-echo -n 0 > wcaDb
+echo 0 > wcaDb
 ```
 
 ### Import data from WCA
@@ -202,7 +202,7 @@ chmod +x upWCARes.sh
 ./upWCARes.sh
 ```
 
-**Important: Don't run `sh upWCARes.sh` under OS X, it would put the `-n` into the file. Run `bash upWCARes.sh` instead** (Or you can remove the `-n` because the php script does trim it, which was added afterwards)
+~~**Important: Don't run `sh upWCARes.sh` under OS X, it would put the `-n` into the file. Run `bash upWCARes.sh` instead** (Or you can remove the `-n` because the php script does trim it, which was added afterwards)~~
 
 Now it should work properly. There might be some problems I haven't mentioned above, but just try to resolve it by your self :)
 

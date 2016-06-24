@@ -1,9 +1,2 @@
-/*
-!.gitignore
-!.gitattributes
-!/fonts/
-!/less/
-!/js/
-!/grunt/
-!package.json
-!Gruntfile.js
+node_modules/
+dist/
