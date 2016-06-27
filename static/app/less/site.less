@@ -21,6 +21,7 @@ body {
 body {
     background-color: #f4f4f4;
     font-family: @font-latin, sans-serif;
+    padding-top: @navbar-height;
 }
 
 html {
@@ -55,7 +56,7 @@ thead th {
 #formLang {
     position: absolute;
     right: @container-padding-side;
-    top: @navbar-height - 10;
+    top: 10px;
 }
 
 .personal-record {
@@ -113,7 +114,7 @@ tr.warning {
     padding: 0 0 @footer-height;
 
     >.container {
-        padding: (@navbar-height + 20) @container-padding-side 20px;
+        padding: 20px @container-padding-side;
         position: relative;
     }
 }
