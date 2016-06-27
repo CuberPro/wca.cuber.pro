@@ -1,6 +1,6 @@
 <?php
 
-return (function($dirNames){
+return call_user_func(function ($dirNames){
     $components = [];
     foreach ($dirNames as $dirName) {
         $dir = @opendir($dirName);
@@ -29,4 +29,4 @@ return (function($dirNames){
         $result = array_merge($result, $one);
     }
     return array_filter($result);
-})($COMPONENT_DIRS);
+}, $COMPONENT_DIRS);
