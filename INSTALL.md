@@ -81,7 +81,7 @@ brew install npm
 Finally there is something not installed with `homebrew`...I need `grunt` because I want to build the bootstrap framework from source so I can build a minimum sized framework as I need. `less` is for compiling style sheets for the project.
 
 ```bash
-npm install -g grunt-cli less
+npm install -g grunt-cli less less-plugin-autoprefix less-plugin-clean-css
 ```
 
 ### Install GNU commands (OS X only)

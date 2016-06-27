@@ -25,6 +25,5 @@ class AppAsset extends AssetBundle
             '*.js',
             '*.less',
         ],
-        'forceCopy' => YII_ENV_DEV,
     ];
 }
