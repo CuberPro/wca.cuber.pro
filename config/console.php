@@ -3,7 +3,13 @@
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 
 $params = require(__DIR__ . '/params.php');
-$db = require(__DIR__ . '/db.php');
+
+$COMPONENT_DIRS = [
+    __DIR__ . '/common',
+    __DIR__ . '/console',
+];
+
+$components = require(__DIR__ . '/components.php');
 
 return [
     'id' => 'basic-console',

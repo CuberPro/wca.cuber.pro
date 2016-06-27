@@ -31,7 +31,7 @@ then
     wget -q $baseUrl$fileName -O $localDir$fileName || exit
 fi
 
-dbConfig="$localDir/../../../config/wcaDb"
+dbConfig="$localDir/../../../config/common/wcaDb"
 dbNum=`expr \( \`cat $dbConfig\` + 1 \) % 2`
 dbName="wca_$dbNum"
 dbConf=`[[ -f $localDir/my.local.cnf ]] && echo $localDir/my.local.cnf || echo $localDir/my.cnf`

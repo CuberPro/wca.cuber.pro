@@ -122,7 +122,7 @@ env[PATH] = /usr/local/bin:/usr/bin:/bin
 To make the website as stable as possible, I'm using two databases to ensure the website works well during the data update process(it usually takes around 10 minutes). One is called `wca_0` and the other is called `wca_1`. Naming them like this make it easier to alter between them automatically, with the following tricks:
 
 ```bash
-dbConfig="$localDir/../../../config/wcaDb"
+dbConfig="$localDir/../../../config/common/wcaDb"
 ...
 dbNum=`expr \( \`cat $dbConfig\` + 1 \) % 2`
 dbName="wca_$dbNum"
@@ -177,11 +177,11 @@ It should compile the source files into `dist` directory.
 
 To protect some private credentials, it is highly recommended to have a 'local copy' of some config files. In this project, there are three.
 
- - First one is `config/cookie.php`, copy it to `cookie.local.php` and add some random string to its content, this is used by  `cookieValidationKey`;
- - Another one is `config/db.php`, copy it to `db.local.php`, it has the credentials for the database, so configure it according to your own situation;
+ - First one is `config/web/request.php`, copy it to `request.local.php` and add some random string to `cookieValidationKey`;
+ - Another one is `config/common/db.php`, copy it to `db.local.php`, it has the credentials for the database, so configure it according to your own situation;
  - The final one is `commands/shell/wca_db/my.cnf`, copy it to `my.local.cnf`, it is used for the update script, similar to `db.php`.
 
-Finally you have to run the following command in the `config` directory to create the `wcaDb` file: 
+Finally you have to run the following command in the `config/common` directory to create the `wcaDb` file: 
 
 ```bash
 echo 0 > wcaDb
