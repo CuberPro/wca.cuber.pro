@@ -19,19 +19,6 @@ return [
     'modules' => [
         'gii' => 'yii\gii\Module',
     ],
-    'components' => [
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
-        ],
-        'log' => [
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
-        ],
-        'db' => $db,
-    ],
+    'components' => $components,
     'params' => $params,
 ];
