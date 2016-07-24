@@ -201,6 +201,7 @@ return [
     'United Arab Emirates' => '',
     'United Kingdom' => '',
     'Uruguay' => '',
+    'Uzbekistan' => '',
     'Vanuatu' => '',
     'Venezuela' => '',
     'Vietnam' => '',
