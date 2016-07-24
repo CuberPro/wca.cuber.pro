@@ -218,6 +218,7 @@ return [
     'United Arab Emirates' => 'アラブ首長国連邦',
     'United Kingdom' => 'イギリス',
     'Uruguay' => 'ウルグアイ',
+    'Uzbekistan' => 'ウズベキスタン',
     'Vanuatu' => 'バヌアツ',
     'Venezuela' => 'ベネズエラ',
     'Vietnam' => 'ベトナム',
