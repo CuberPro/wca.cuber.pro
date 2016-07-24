@@ -56,6 +56,7 @@ class TranslateController extends Controller {
                     }
                     if (isset($countries[$regionName])) {
                         $correctTranslation = locale_get_display_region('-' . $countries[$regionName], $langCode);
+                        // handle multiple countries cases
                         if ($correctTranslation != $translation && $correctTranslation != $countries[$regionName]) {
                             $translations[$regionName] = $correctTranslation;
                         }
@@ -67,6 +68,16 @@ class TranslateController extends Controller {
                         }
                     }
                 }
+                $newRegions = array_diff_key($countries, $translations);
+                foreach ($newRegions as $newRegion => $translation) {
+                    $newRegions[$newRegion] = '';
+                    $translation = $newRegion;
+                    $correctTranslation = locale_get_display_region('-' . $countries[$newRegion], $langCode);
+                    if ($correctTranslation != $translation && $correctTranslation != $countries[$regionName]) {
+                        $newRegions[$newRegion] = $correctTranslation;
+                    }
+                }
+                $translations = array_merge($translations, $newRegions);
                 $translated = array_filter($translations);
                 $untranslated = array_filter($translations, function($v){return empty($v);});
                 ksort($translated);
