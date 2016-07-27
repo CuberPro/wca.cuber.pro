@@ -116,6 +116,7 @@ return [
     'Lesotho' => '',
     'Liberia' => '',
     'Libya' => '',
+    'Liechtenstein' => '',
     'Lithuania' => '',
     'Luxembourg' => '',
     'Macedonia' => '',
