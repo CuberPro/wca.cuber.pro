@@ -123,6 +123,7 @@ return [
     'Lesotho' => 'レソト',
     'Liberia' => 'リベリア',
     'Libya' => 'リビア',
+    'Liechtenstein' => 'リヒテンシュタイン',
     'Lithuania' => 'リトアニア',
     'Luxembourg' => 'ルクセンブルグ',
     'Macau' => '中華人民共和国マカオ特別行政区',
