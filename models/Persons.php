@@ -27,6 +27,7 @@ class Persons extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
+            [['id', 'subid'], 'required'],
             [['subid'], 'integer'],
             [['id'], 'string', 'max' => 10],
             [['name'], 'string', 'max' => 80],

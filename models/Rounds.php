@@ -28,6 +28,7 @@ class Rounds extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['id'], 'required'],
             [['rank'], 'integer'],
             [['id'], 'string', 'max' => 1],
             [['name'], 'string', 'max' => 50],

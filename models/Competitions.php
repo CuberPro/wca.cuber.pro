@@ -23,7 +23,7 @@ use Yii;
  * @property string $venue
  * @property string $venueAddress
  * @property string $venueDetails
- * @property string $website
+ * @property string $external_website
  * @property string $cellName
  * @property integer $latitude
  * @property integer $longitude
@@ -44,14 +44,14 @@ class Competitions extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['id', 'eventSpecs'], 'required'],
             [['information', 'eventSpecs', 'wcaDelegate', 'organiser'], 'string'],
             [['year', 'month', 'day', 'endMonth', 'endDay', 'latitude', 'longitude'], 'integer'],
-            [['eventSpecs'], 'required'],
             [['id'], 'string', 'max' => 32],
             [['name', 'cityName', 'countryId'], 'string', 'max' => 50],
             [['venue'], 'string', 'max' => 240],
             [['venueAddress', 'venueDetails'], 'string', 'max' => 120],
-            [['website'], 'string', 'max' => 200],
+            [['external_website'], 'string', 'max' => 200],
             [['cellName'], 'string', 'max' => 45]
         ];
     }
@@ -78,7 +78,7 @@ class Competitions extends \yii\db\ActiveRecord
             'venue' => 'Venue',
             'venueAddress' => 'Venue Address',
             'venueDetails' => 'Venue Details',
-            'website' => 'Website',
+            'external_website' => 'External Website',
             'cellName' => 'Cell Name',
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',

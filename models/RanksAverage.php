@@ -30,6 +30,7 @@ class RanksAverage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['personId', 'eventId'], 'required'],
             [['best', 'worldRank', 'continentRank', 'countryRank'], 'integer'],
             [['personId'], 'string', 'max' => 10],
             [['eventId'], 'string', 'max' => 6]
