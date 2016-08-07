@@ -10,9 +10,6 @@ use Yii;
  * @property string $id
  * @property string $name
  * @property string $continentId
- * @property integer $latitude
- * @property integer $longitude
- * @property integer $zoom
  * @property string $iso2
  */
 class Countries extends \yii\db\ActiveRecord {
@@ -31,7 +28,7 @@ class Countries extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['latitude', 'longitude', 'zoom'], 'integer'],
+            [['id'], 'required'],
             [['id', 'name', 'continentId'], 'string', 'max' => 50],
             [['iso2'], 'string', 'max' => 2]
         ];
@@ -45,9 +42,6 @@ class Countries extends \yii\db\ActiveRecord {
             'id' => 'ID',
             'name' => 'Name',
             'continentId' => 'Continent ID',
-            'latitude' => 'Latitude',
-            'longitude' => 'Longitude',
-            'zoom' => 'Zoom',
             'iso2' => 'Iso2',
         ];
     }

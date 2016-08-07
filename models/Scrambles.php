@@ -32,8 +32,8 @@ class Scrambles extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['scrambleId', 'competitionId', 'eventId', 'roundId', 'groupId', 'isExtra', 'scrambleNum', 'scramble'], 'required'],
             [['scrambleId', 'isExtra', 'scrambleNum'], 'integer'],
-            [['competitionId', 'eventId', 'roundId', 'groupId', 'isExtra', 'scrambleNum', 'scramble'], 'required'],
             [['competitionId'], 'string', 'max' => 32],
             [['eventId'], 'string', 'max' => 6],
             [['roundId'], 'string', 'max' => 1],

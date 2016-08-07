@@ -30,6 +30,7 @@ class Continents extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
+            [['id'], 'required'],
             [['latitude', 'longitude', 'zoom'], 'integer'],
             [['id', 'name'], 'string', 'max' => 50],
             [['recordName'], 'string', 'max' => 3]

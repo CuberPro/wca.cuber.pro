@@ -26,6 +26,7 @@ class Formats extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['id'], 'required'],
             [['id'], 'string', 'max' => 1],
             [['name'], 'string', 'max' => 50]
         ];
