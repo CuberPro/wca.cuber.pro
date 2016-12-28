@@ -123,6 +123,7 @@ return [
     'Madagascar' => '',
     'Malawi' => '',
     'Malaysia' => '',
+    'Maldives' => '',
     'Mali' => '',
     'Malta' => '',
     'Marshall Islands' => '',
