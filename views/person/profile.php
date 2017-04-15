@@ -81,12 +81,12 @@ else:
           </td>
           <td class="text-center"><?= $event['s']['competitionName'] ?></td>
           <td class="text-right">
-            <span class="personal-record <?= $event['s']['days'] > 1000 ? 'very-long' : '' ?>" data-toggle="tooltip" data-placement="left" title="<?= Yii::t('app', '{days,plural,=1{# day ago} =0{Today} other{# days ago}}', ['days' => $event['s']['days']]) ?>">
+            <span class="personal-record <?= $event['s']['days'] > Yii::$app->params['oldRecordDays'] ? 'very-long' : '' ?>" data-toggle="tooltip" data-placement="left" title="<?= Yii::t('app', '{days,plural,=1{# day ago} =0{Today} other{# days ago}}', ['days' => $event['s']['days']]) ?>">
               <?= Results::formatTime($event['s']['best'], $event['s']['eventId']) ?>
             </span>
           </td>
           <td class="text-right">
-            <span class="personal-record <?= isset($event['a']) && $event['a']['days'] > 1000 ? 'very-long' : '' ?>" data-toggle="tooltip" data-placement="right" title="<?= isset($event['a']) ? Yii::t('app', '{days,plural,=1{# day ago} =0{Today} other{# days ago}}', ['days' => $event['a']['days']]) : '' ?>">
+            <span class="personal-record <?= isset($event['a']) && $event['a']['days'] > Yii::$app->params['oldRecordDays'] ? 'very-long' : '' ?>" data-toggle="tooltip" data-placement="right" title="<?= isset($event['a']) ? Yii::t('app', '{days,plural,=1{# day ago} =0{Today} other{# days ago}}', ['days' => $event['a']['days']]) : '' ?>">
               <?= isset($event['a']) ? Results::formatTime($event['a']['best'], $event['a']['eventId']) : '' ?>
             </span>
           </td>
