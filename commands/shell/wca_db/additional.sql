@@ -78,9 +78,9 @@ ALTER TABLE `Results`
   ADD KEY `regionalAverageRecord` (`regionalAverageRecord`);
 
 --
--- Indexes for table `Rounds`
+-- Indexes for table `RoundTypes`
 --
-ALTER TABLE `Rounds`
+ALTER TABLE `RoundTypes`
   ADD PRIMARY KEY (`id`);
 
 --
