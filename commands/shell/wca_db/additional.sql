@@ -1,4 +1,4 @@
-SET CHARACTER SET utf8;
+SET CHARACTER SET utf8mb4;
 --
 -- Indexes for table `Competitions`
 --
@@ -96,15 +96,15 @@ ALTER TABLE `Scrambles`
 --
 DROP TABLE IF EXISTS `RanksGender`;
 CREATE TABLE `RanksGender` (
-  `personId` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `eventId` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `gender` char(1) COLLATE utf8_unicode_ci NOT NULL,
-  `type` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `personId` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `eventId` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `gender` char(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` char(1) COLLATE utf8mb4_unicode_ci NOT NULL,
   `best` int(11) NOT NULL DEFAULT '0',
   `worldRank` int(11) NOT NULL DEFAULT '0',
   `continentRank` int(11) NOT NULL DEFAULT '0',
   `countryRank` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for table `RanksGender`
@@ -122,18 +122,18 @@ ALTER TABLE `RanksGender`
 --
 DROP TABLE IF EXISTS `KinchScores`;
 CREATE TABLE `KinchScores` (
-  `personId` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `countryId` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `continentId` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `gender` char(1) COLLATE utf8_unicode_ci NOT NULL,
-  `eventId` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `personId` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `countryId` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `continentId` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` char(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `eventId` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
   `worldSame` decimal(16,2) NOT NULL DEFAULT '0.00',
   `worldAll` decimal(16,2) NOT NULL DEFAULT '0.00',
   `continentSame` decimal(16,2) NOT NULL DEFAULT '0.00',
   `continentAll` decimal(16,2) NOT NULL DEFAULT '0.00',
   `countrySame` decimal(16,2) NOT NULL DEFAULT '0.00',
   `countryAll` decimal(16,2) NOT NULL DEFAULT '0.00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for table `KinchScores`
