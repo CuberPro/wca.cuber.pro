@@ -182,6 +182,7 @@ class KinchScores extends \yii\db\ActiveRecord {
             ->groupBy(['k.personId'])
             ->orderBy([
                 'overall' => SORT_DESC,
+                'personId' => SORT_ASC,
             ]);
         if (isset($offset)) {
             $query->offset($offset);
