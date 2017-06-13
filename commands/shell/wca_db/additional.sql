@@ -203,12 +203,17 @@ BEGIN
     RETURN(100.00);
   END IF;
   IF eventId='333mbf' THEN
-    RETURN(ROUND(mbfScore(result) * 100 / mbfScore(record), 2));
+    SET newScore=ROUND(mbfScore(result) * 100 / mbfScore(record), 2);
   ELSEIF eventId IN ('333fm', '333bf') THEN
     SET newScore=ROUND(record * 100 / result, 2);
-    RETURN(IF(newScore > lastScore, newScore, lastScore));
+    SET newScore=IF(newScore > lastScore, newScore, lastScore);
   ELSE
-    RETURN(ROUND(record * 100 / result, 2));
+    SET newScore=ROUND(record * 100 / result, 2);
+  END IF;
+  IF newScore=100.00 AND record<>result THEN
+    RETURN(99.99);
+  ELSE
+    RETURN(newScore);
   END IF;
 END$$
 
