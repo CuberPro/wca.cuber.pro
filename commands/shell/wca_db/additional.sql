@@ -204,11 +204,11 @@ BEGIN
   END IF;
   IF eventId='333mbf' THEN
     SET newScore=ROUND(mbfScore(result) * 100 / mbfScore(record), 2);
-  ELSEIF eventId IN ('333fm', '333bf') THEN
-    SET newScore=ROUND(record * 100 / result, 2);
-    SET newScore=IF(newScore > lastScore, newScore, lastScore);
   ELSE
     SET newScore=ROUND(record * 100 / result, 2);
+  END IF;
+  IF eventId IN ('333fm', '333bf') AND newScore <= lastScore THEN
+    RETURN(lastScore);
   END IF;
   IF newScore=100.00 AND record<>result THEN
     RETURN(99.99);
