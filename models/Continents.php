@@ -51,12 +51,17 @@ class Continents extends \yii\db\ActiveRecord {
         ];
     }
 
-    public static function getContinents() {
+    public static function getContinents($includeMultipleContinents = false) {
         $c = Yii::$app->cache;
         $continentList = $c->get(self::CONTINENTS_LIST_CACHE_KEY);
         if ($continentList === false) {
             $continentList = self::find()->orderBy('name')->all();
             $c->set(self::CONTINENTS_LIST_CACHE_KEY, $continentList);
+        }
+        if (!$includeMultipleContinents) {
+            $continentList = array_filter($continentList, function($continent) {
+                return !in_array($continent['id'], ['_Multiple Continents']);
+            });
         }
         return $continentList;
     }
