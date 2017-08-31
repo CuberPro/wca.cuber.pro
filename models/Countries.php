@@ -55,7 +55,7 @@ class Countries extends \yii\db\ActiveRecord {
         }
         if (!$includeMultipleCountries) {
             $countryList = array_filter($countryList, function($country) {
-                return !in_array($country['id'], ['XA', 'XE', 'XS']);
+                return !in_array($country['id'], ['XA', 'XE', 'XM', 'XS']);
             });
         }
         return $countryList;
