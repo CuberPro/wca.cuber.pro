@@ -17,6 +17,10 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    '3x3x3 Cube' => '3x3x3魔方',
+    '3x3x3 Multi-Blind Old Style' => '3x3x3多盲（旧规则）',
+    'Clock' => '魔表',
+    'Magic' => '八片魔板',
     '2x2x2 Cube' => '2x2x2魔方',
     '3x3x3 Blindfolded' => '3x3x3盲拧',
     '3x3x3 Fewest Moves' => '3x3x3最少步',
@@ -32,10 +36,6 @@ return [
     'Master Magic' => '十二片魔板',
     'Megaminx' => '五魔方',
     'Pyraminx' => '金字塔',
-    'Rubik\'s Clock' => '魔表',
-    'Rubik\'s Cube' => '三阶魔方',
-    'Rubik\'s Cube: Multi blind old style' => '三阶多个盲拧（旧规则）',
-    'Rubik\'s Magic' => '八片魔板',
     'Skewb' => '斜转魔方',
     'Square-1' => 'Square-1魔方',
 ];
