@@ -17,6 +17,10 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    '3x3x3 Cube' => '3x3x3キューブ',
+    '3x3x3 Multi-Blind Old Style' => '旧3x3x3キューブ: 複数目隠し',
+    'Clock' => 'クロック',
+    'Magic' => 'マジック',
     '2x2x2 Cube' => '2x2x2キューブ',
     '3x3x3 Blindfolded' => '3x3x3目隠し',
     '3x3x3 Fewest Moves' => '3x3x3最少手数',
@@ -32,10 +36,6 @@ return [
     'Master Magic' => 'マスターマジック',
     'Megaminx' => 'メガミンクス',
     'Pyraminx' => 'ピラミンクス',
-    'Rubik\'s Clock' => 'ルービッククロック',
-    'Rubik\'s Cube' => 'ルービックキューブ',
-    'Rubik\'s Cube: Multi blind old style' => '旧ルービックキューブ: 複数目隠し',
-    'Rubik\'s Magic' => 'ルービックマジック',
     'Skewb' => 'スキューブ',
     'Square-1' => 'スクエア1',
 ];
