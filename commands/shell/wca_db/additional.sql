@@ -148,7 +148,7 @@ DELIMITER $$
 -- calculating ranks, caller should initialize global variables first
 DROP FUNCTION IF EXISTS `multiRank`$$
 CREATE FUNCTION `multiRank` (
-  best varchar(10),
+  best int(11),
   gender char(1),
   event varchar(6),
   region varchar(50))
@@ -176,7 +176,7 @@ END$$
 -- A function to calculate scores for multiple blindfolded
 DROP FUNCTION IF EXISTS `mbfScore`$$
 CREATE FUNCTION `mbfScore` (
-  result varchar(10))
+  result int(11))
 RETURNS DECIMAL(16,4)
 BEGIN
   DECLARE difference INT;
@@ -189,9 +189,9 @@ END$$
 -- A function to calculate kinch scores
 DROP FUNCTION IF EXISTS `kinchScore`$$
 CREATE FUNCTION `kinchScore` (
-  result varchar(10),
+  result int(11),
   eventId varchar(6),
-  record varchar(10),
+  record int(11),
   lastScore DECIMAL(16,2))
 RETURNS DECIMAL(16,2)
 BEGIN
