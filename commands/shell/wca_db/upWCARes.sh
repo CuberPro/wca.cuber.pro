@@ -19,8 +19,8 @@ else
     date=gdate
 fi
 
-fileName=`curl -k --compressed $baseUrl$staticPage 2>/dev/null|$grep -oP 'WCA_export\d+_\d{8}\.sql\.zip'|head -1`
-rm -f $localDir/WCA_export*_`$date --date='15 days ago' +%Y%m%d`.sql.zip
+fileName=`curl -k --compressed $baseUrl$staticPage 2>/dev/null|$grep -oP 'WCA_export\d+_\d{8}[0-9TZ]*\.sql\.zip'|head -1`
+rm -f $localDir/WCA_export*_`$date --date='15 days ago' +%Y%m%d`*.sql.zip
 
 if [ -z $fileName ] || [[ $lastFileName = $fileName ]]
 then
