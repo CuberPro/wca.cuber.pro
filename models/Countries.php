@@ -55,7 +55,7 @@ class Countries extends \yii\db\ActiveRecord {
         }
         if (!$includeMultipleCountries) {
             $countryList = array_filter($countryList, function($country) {
-                return !in_array($country['id'], ['XA', 'XE', 'XM', 'XS']);
+                return !preg_match('/^X[A-JL-Z]$/', $country['id']); // except XK for Kosovo in case it becomes id
             });
         }
         return $countryList;
