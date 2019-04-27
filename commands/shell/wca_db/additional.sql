@@ -318,33 +318,19 @@ CREATE TEMPORARY TABLE IF NOT EXISTS `WR`
 
 ALTER TABLE `WR` ADD KEY `eventId` (`eventId`), ADD KEY `type` (`type`);
 
--- Averages, 333fm and 333bf scores here are temporary, might be replaced by single scores later
+-- Averages, some scores here are temporary, might be replaced by single scores later
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksAverage` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
   LEFT JOIN `WR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `r`.`type`='a'
 SET `k`.`worldAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`worldAll`)
-WHERE `k`.`eventId` IN ('333', '444', '555', '222', '333oh', '333ft', 'minx', 'pyram', 'sq1', 'clock', 'skewb', '666', '777', '333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `rk`.`personId` IS NOT NULL;
 
--- Singles
+-- Singles, for the BF events and 3x3x3 FM, singles are also recognized
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksSingle` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
   LEFT JOIN `WR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `r`.`type`='s'
 SET `k`.`worldAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`worldAll`)
-WHERE `k`.`eventId` IN ('444bf', '555bf') AND `rk`.`personId` IS NOT NULL;
-
--- Mbf
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksSingle` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
-  LEFT JOIN `WR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `r`.`type`='s'
-SET `k`.`worldAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`worldAll`)
-WHERE `k`.`eventId` IN ('333mbf') AND `rk`.`personId` IS NOT NULL;
-
--- 333fm and 333bf, selecting better result between single and average
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksSingle` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
-  LEFT JOIN `WR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `r`.`type`='s'
-SET `k`.`worldAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`worldAll`)
-WHERE `k`.`eventId` IN ('333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `k`.`eventId` IN ('333fm', '333bf', '444bf', '555bf', '333mbf') AND `rk`.`personId` IS NOT NULL;
 
 -- -------------------------- Calculating Gender Scores according to Gender WR -----------------------------
 
@@ -357,33 +343,19 @@ CREATE TEMPORARY TABLE IF NOT EXISTS `gWR`
     GROUP BY `eventId`,`gender`,`type`, `best`;
 ALTER TABLE `gWR` ADD KEY `eventId` (`eventId`), ADD KEY `gender` (`gender`), ADD KEY `type` (`type`);
 
--- Averages, 333fm and 333bf scores here are temporary, might be replaced by single scores later
+-- Averages, some scores here are temporary, might be replaced by single scores later
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='a'
   LEFT JOIN `gWR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `r`.`type`='a'
 SET `k`.`worldSame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`worldSame`)
-WHERE `k`.`eventId` IN ('333', '444', '555', '222', '333oh', '333ft', 'minx', 'pyram', 'sq1', 'clock', 'skewb', '666', '777', '333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `rk`.`personId` IS NOT NULL;
 
--- Singles
+-- Singles, for the BF events and 3x3x3 FM, singles are also recognized
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='s'
   LEFT JOIN `gWR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `r`.`type`='s'
 SET `k`.`worldSame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`worldSame`)
-WHERE `k`.`eventId` IN ('444bf', '555bf') AND `rk`.`personId` IS NOT NULL;
-
--- Mbf
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='s'
-  LEFT JOIN `gWR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `r`.`type`='s'
-SET `k`.`worldSame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`worldSame`)
-WHERE `k`.`eventId` IN ('333mbf') AND `rk`.`personId` IS NOT NULL;
-
--- 333fm and 333bf, selecting better result between single and average
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='s'
-  LEFT JOIN `gWR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `r`.`type`='s'
-SET `k`.`worldSame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`worldSame`)
-WHERE `k`.`eventId` IN ('333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `k`.`eventId` IN ('333fm', '333bf', '444bf', '555bf', '333mbf') AND `rk`.`personId` IS NOT NULL;
 
 -- -------------------------- Calculating Overall Scores according to CR -----------------------------
 
@@ -404,33 +376,19 @@ CREATE TEMPORARY TABLE IF NOT EXISTS `CR`
 
 ALTER TABLE `CR` ADD KEY `eventId` (`eventId`), ADD KEY `continentId` (`continentId`), ADD KEY `type` (`type`);
 
--- Averages, 333fm and 333bf scores here are temporary, might be replaced by single scores later
+-- Averages, some scores here are temporary, might be replaced by single scores later
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksAverage` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
   LEFT JOIN `CR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`continentId`=`r`.`continentId` AND `r`.`type`='a'
 SET `k`.`continentAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`continentAll`)
-WHERE `k`.`eventId` IN ('333', '444', '555', '222', '333oh', '333ft', 'minx', 'pyram', 'sq1', 'clock', 'skewb', '666', '777', '333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `rk`.`personId` IS NOT NULL;
 
--- Singles
+-- Singles, for the BF events and 3x3x3 FM, singles are also recognized
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksSingle` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
   LEFT JOIN `CR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`continentId`=`r`.`continentId` AND `r`.`type`='s'
 SET `k`.`continentAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`continentAll`)
-WHERE `k`.`eventId` IN ('444bf', '555bf') AND `rk`.`personId` IS NOT NULL;
-
--- Mbf
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksSingle` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
-  LEFT JOIN `CR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`continentId`=`r`.`continentId` AND `r`.`type`='s'
-SET `k`.`continentAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`continentAll`)
-WHERE `k`.`eventId` IN ('333mbf') AND `rk`.`personId` IS NOT NULL;
-
--- 333fm and 333bf, selecting better result between single and average
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksSingle` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
-  LEFT JOIN `CR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`continentId`=`r`.`continentId` AND `r`.`type`='s'
-SET `k`.`continentAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`continentAll`)
-WHERE `k`.`eventId` IN ('333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `k`.`eventId` IN ('333fm', '333bf', '444bf', '555bf', '333mbf') AND `rk`.`personId` IS NOT NULL;
 
 -- -------------------------- Calculating Gender Scores according to Gender CR -----------------------------
 
@@ -445,33 +403,19 @@ CREATE TEMPORARY TABLE IF NOT EXISTS `gCR`
     GROUP BY `cy`.`continentId`,`rk`.`eventId`,`rk`.`gender`,`rk`.`type`, `best`;
 ALTER TABLE `gCR` ADD KEY `eventId` (`eventId`), ADD KEY `gender` (`gender`), ADD KEY `continentId` (`continentId`), ADD KEY `type` (`type`);
 
--- Averages, 333fm and 333bf scores here are temporary, might be replaced by single scores later
+-- Averages, some scores here are temporary, might be replaced by single scores later
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='a'
   LEFT JOIN `gCR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `k`.`continentId`=`r`.`continentId` AND `r`.`type`='a'
 SET `k`.`continentSame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`continentSame`)
-WHERE `k`.`eventId` IN ('333', '444', '555', '222', '333oh', '333ft', 'minx', 'pyram', 'sq1', 'clock', 'skewb', '666', '777', '333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `rk`.`personId` IS NOT NULL;
 
--- Singles
+-- Singles, for the BF events and 3x3x3 FM, singles are also recognized
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='s'
   LEFT JOIN `gCR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `k`.`continentId`=`r`.`continentId` AND `r`.`type`='s'
 SET `k`.`continentSame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`continentSame`)
-WHERE `k`.`eventId` IN ('444bf', '555bf') AND `rk`.`personId` IS NOT NULL;
-
--- Mbf
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='s'
-  LEFT JOIN `gCR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `k`.`continentId`=`r`.`continentId` AND `r`.`type`='s'
-SET `k`.`continentSame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`continentSame`)
-WHERE `k`.`eventId` IN ('333mbf') AND `rk`.`personId` IS NOT NULL;
-
--- 333fm and 333bf, selecting better result between single and average
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='s'
-  LEFT JOIN `gCR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `k`.`continentId`=`r`.`continentId` AND `r`.`type`='s'
-SET `k`.`continentSame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`continentSame`)
-WHERE `k`.`eventId` IN ('333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `k`.`eventId` IN ('333fm', '333bf', '444bf', '555bf', '333mbf') AND `rk`.`personId` IS NOT NULL;
 
 -- -------------------------- Calculating Overall Scores according to NR -----------------------------
 
@@ -490,33 +434,19 @@ CREATE TEMPORARY TABLE IF NOT EXISTS `NR`
 
 ALTER TABLE `NR` ADD KEY `eventId` (`eventId`), ADD KEY `countryId` (`countryId`), ADD KEY `type` (`type`);
 
--- Averages, 333fm and 333bf scores here are temporary, might be replaced by single scores later
+-- Averages, some scores here are temporary, might be replaced by single scores later
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksAverage` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
   LEFT JOIN `NR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`countryId`=`r`.`countryId` AND `r`.`type`='a'
 SET `k`.`countryAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`countryAll`)
-WHERE `k`.`eventId` IN ('333', '444', '555', '222', '333oh', '333ft', 'minx', 'pyram', 'sq1', 'clock', 'skewb', '666', '777', '333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `rk`.`personId` IS NOT NULL;
 
--- Singles
+-- Singles, for the BF events and 3x3x3 FM, singles are also recognized
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksSingle` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
   LEFT JOIN `NR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`countryId`=`r`.`countryId` AND `r`.`type`='s'
 SET `k`.`countryAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`countryAll`)
-WHERE `k`.`eventId` IN ('444bf', '555bf') AND `rk`.`personId` IS NOT NULL;
-
--- Mbf
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksSingle` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
-  LEFT JOIN `NR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`countryId`=`r`.`countryId` AND `r`.`type`='s'
-SET `k`.`countryAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`countryAll`)
-WHERE `k`.`eventId` IN ('333mbf') AND `rk`.`personId` IS NOT NULL;
-
--- 333fm and 333bf, selecting better result between single and average
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksSingle` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId`
-  LEFT JOIN `NR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`countryId`=`r`.`countryId` AND `r`.`type`='s'
-SET `k`.`countryAll`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`countryAll`)
-WHERE `k`.`eventId` IN ('333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `k`.`eventId` IN ('333fm', '333bf', '444bf', '555bf', '333mbf') AND `rk`.`personId` IS NOT NULL;
 
 -- -------------------------- Calculating Gender Scores according to Gender NR -----------------------------
 
@@ -530,30 +460,16 @@ CREATE TEMPORARY TABLE IF NOT EXISTS `gNR`
     GROUP BY `p`.`countryId`,`rk`.`eventId`,`rk`.`gender`,`rk`.`type`, `best`;
 ALTER TABLE `gNR` ADD KEY `eventId` (`eventId`), ADD KEY `gender` (`gender`), ADD KEY `countryId` (`countryId`), ADD KEY `type` (`type`);
 
--- Averages, 333fm and 333bf scores here are temporary, might be replaced by single scores later
+-- Averages, some scores here are temporary, might be replaced by single scores later
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='a'
   LEFT JOIN `gNR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `k`.`countryId`=`r`.`countryId` AND `r`.`type`='a'
 SET `k`.`countrySame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`countrySame`)
-WHERE `k`.`eventId` IN ('333', '444', '555', '222', '333oh', '333ft', 'minx', 'pyram', 'sq1', 'clock', 'skewb', '666', '777', '333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `rk`.`personId` IS NOT NULL;
 
--- Singles
+-- Singles, for the BF events and 3x3x3 FM, singles are also recognized
 UPDATE `KinchScores` AS `k`
   LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='s'
   LEFT JOIN `gNR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `k`.`countryId`=`r`.`countryId` AND `r`.`type`='s'
 SET `k`.`countrySame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`countrySame`)
-WHERE `k`.`eventId` IN ('444bf', '555bf') AND `rk`.`personId` IS NOT NULL;
-
--- Mbf
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='s'
-  LEFT JOIN `gNR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `k`.`countryId`=`r`.`countryId` AND `r`.`type`='s'
-SET `k`.`countrySame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`countrySame`)
-WHERE `k`.`eventId` IN ('333mbf') AND `rk`.`personId` IS NOT NULL;
-
--- 333fm and 333bf, selecting better result between single and average
-UPDATE `KinchScores` AS `k`
-  LEFT JOIN `RanksGender` AS `rk` ON `k`.`personId`=`rk`.`personId` AND `k`.`eventId`=`rk`.`eventId` AND `rk`.`type`='s'
-  LEFT JOIN `gNR` AS `r` ON `k`.`eventId`=`r`.`eventId` AND `k`.`gender`=`r`.`gender` AND `k`.`countryId`=`r`.`countryId` AND `r`.`type`='s'
-SET `k`.`countrySame`=kinchScore(`rk`.`best`, `k`.`eventId`, `r`.`best`, `k`.`countrySame`)
-WHERE `k`.`eventId` IN ('333fm', '333bf') AND `rk`.`personId` IS NOT NULL;
+WHERE `k`.`eventId` IN ('333fm', '333bf', '444bf', '555bf', '333mbf') AND `rk`.`personId` IS NOT NULL;
