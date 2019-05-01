@@ -207,7 +207,7 @@ BEGIN
   ELSE
     SET newScore=ROUND(record * 100 / result, 2);
   END IF;
-  IF eventId IN ('333fm', '333bf') AND newScore <= lastScore THEN
+  IF newScore <= lastScore THEN
     RETURN(lastScore);
   END IF;
   IF newScore=100.00 AND record<>result THEN
