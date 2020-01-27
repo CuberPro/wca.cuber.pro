@@ -298,7 +298,7 @@ INSERT INTO `KinchScores` (`personId`, `countryId`, `continentId`, `gender`, `ev
     LEFT JOIN `Persons` AS `p` ON `rk`.`personId`=`p`.`id`
     LEFT JOIN `Countries` AS `cy` ON `p`.`countryId`=`cy`.`id`
     LEFT JOIN `Continents` AS `ct` ON `cy`.`continentId`=`ct`.`id`
-    WHERE `rk`.`eventId` IN ('333', '444', '555', '222', '333oh', '333ft', 'minx', 'pyram', 'sq1', 'clock', 'skewb', '666', '777') AND `p`.`subid`=1;
+    WHERE `rk`.`eventId` IN ('333', '444', '555', '222', '333oh', 'minx', 'pyram', 'sq1', 'clock', 'skewb', '666', '777') AND `p`.`subid`=1;
 INSERT INTO `KinchScores` (`personId`, `countryId`, `continentId`, `gender`, `eventId`)
   SELECT `rk`.`personId`, `cy`.`id` AS `countryId`, `ct`.`id` AS `continentId`, `p`.`gender`, `rk`.`eventId`
     FROM `RanksSingle` AS `rk`
