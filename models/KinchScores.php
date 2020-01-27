@@ -114,6 +114,9 @@ class KinchScores extends \yii\db\ActiveRecord {
             return $result;
         }
 
+        $eventList = Events::getEventIds();
+        $eventCount = count($eventList);
+
         $basicQuery = (new Query())
             ->from(['k' => 'KinchScores']);
         switch ($regionType) {
@@ -145,7 +148,7 @@ class KinchScores extends \yii\db\ActiveRecord {
             if ($totalPerson > $rankType['limit']) {
                 $query
                     ->select([
-                        'overall' => 'ROUND(SUM(`k`.`' . $scoreColumn . '`)/18, 2)',
+                        'overall' => 'ROUND(SUM(`k`.`' . $scoreColumn . '`)/' . $eventCount . ', 2)',
                     ])
                     ->groupBy(['k.personId'])
                     ->orderBy([
@@ -175,7 +178,7 @@ class KinchScores extends \yii\db\ActiveRecord {
                 'countryId' => 'cy.id',
                 'countryName' => 'cy.name',
                 'countryCode' => 'cy.iso2',
-                'overall' => 'ROUND(SUM(`k`.`' . $scoreColumn . '`)/18, 2)',
+                'overall' => 'ROUND(SUM(`k`.`' . $scoreColumn . '`)/' . $eventCount . ', 2)',
             ])
             ->leftJoin(['p' => 'Persons'], '`k`.`personId`=`p`.`id` AND `p`.`subid`=1')
             ->leftJoin(['cy' => 'Countries'], '`p`.`countryId`=`cy`.`id`')
@@ -201,7 +204,7 @@ class KinchScores extends \yii\db\ActiveRecord {
                 $query = clone $basicQuery;
                 $query
                     ->select([
-                        'overall' => 'ROUND(SUM(`k`.`' . $scoreColumn . '`)/18, 2)',
+                        'overall' => 'ROUND(SUM(`k`.`' . $scoreColumn . '`)/' . $eventCount . ', 2)',
                     ])
                     ->groupBy(['k.personId'])
                     ->having(['>', 'overall', $firstScore])

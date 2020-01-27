@@ -17,7 +17,7 @@ class Events extends \yii\db\ActiveRecord
 {
 
     const EVENTS_LIST_CACHE_KEY = 'wca_events_list';
-    const RANK_LIMIT = 550;
+    const RANK_LIMIT = 990;
     /**
      * @inheritdoc
      */
