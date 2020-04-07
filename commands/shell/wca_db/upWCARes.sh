@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 PATH=/usr/local/bin:$PATH
 
@@ -41,6 +41,12 @@ yii=$localDir/../../../yii
 
 unzip -qq -o $fileName $sqlName || exit
 cat $sqlName $additionalSqlName | mysql --defaults-extra-file=$dbConf $dbName || exit
+
+export MYSQL_DBNAME=$dbName
+confidential=`[[ -f $localDir/confidential.local.sh ]] && echo $localDir/confidential.local.sh || echo $localDir/confidential.sh`
+source $confidential
+java -Xmx1536m -jar $localDir/wca-data/wca-data.jar || exit
+
 echo $fileName > $last
 echo $dbNum > $dbConfig
 $yii cache/flush-all
