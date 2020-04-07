@@ -25,7 +25,7 @@
         ],
         "post-update-cmd": [
             "git submodule update --init --recursive",
-            "commands/shell/wca_db/wca-data/gradlew jarAndSymlink"
+            "(cd commands/shell/wca_db/wca-data && ./gradlew jarAndSymlink)"
         ]
     },
     "extra": {
