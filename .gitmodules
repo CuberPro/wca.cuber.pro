@@ -1,0 +1,3 @@
+[submodule "commands/shell/wca_db/wca-data"]
+	path = commands/shell/wca_db/wca-data
+	url = https://github.com/CuberPro/wca-data.git
