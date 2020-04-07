@@ -10,6 +10,7 @@ Table of Contents
  - [Install Nginx](#install-nginx)
  - [Install PHP with intl extension](#install-php-with-intl-extension)
  - [Install MySQL](#install-mysql)
+ - [Install Java](#install-java)
  - [Install Composer](#install-composer)
  - [Install NPM](#install-npm)
  - [Install Grunt And Less](#install-grunt-and-less)
@@ -25,7 +26,8 @@ Table of Contents
 ## Requirements
 
  - **PHP:** >=5.4.0
- - **MySQL:** <5.7(there is a weird problem with the sql running with 5.7)
+ - **MySQL:**
+ - **Java:** >=8
  - **NPM**
  - **Grunt**
  - **Less**
@@ -57,11 +59,17 @@ brew install php70 php70-intl
 
 ### Install MySQL
 
-As you might have guessed, with `homebrew` again. I installed version 5.6 instead of 5.7 because there's a problem calculating ranks with my sql statements and I spent a whole night trying to resolve this issue but failed.
+As you might have guessed, with `homebrew` again.
+```bash
+brew install mysql
+```
+
+### Install Java
+
+One more time, with `homebrew`.
 
 ```bash
-brew tap homebrew/versions
-brew install mysql56
+brew install java
 ```
 
 ### Install Composer
@@ -179,6 +187,7 @@ To protect some private credentials, it is highly recommended to have a 'local c
 
  - First one is `config/web/request.php`, copy it to `request.local.php` and add some random string to `cookieValidationKey`;
  - Another one is `config/common/db.php`, copy it to `db.local.php`, it has the credentials for the database, so configure it according to your own situation;
+ - A third one is `commands/shell/wca_db/confidential.sh`, copy it to `confidential.local.sh`, it is used for the update module, similar to `db.php`;
  - The final one is `commands/shell/wca_db/my.cnf`, copy it to `my.local.cnf`, it is used for the update script, similar to `db.php`.
 
 Finally you have to run the following command in the `config/common` directory to create the `wcaDb` file: 

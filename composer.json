@@ -22,6 +22,10 @@
     "scripts": {
         "post-create-project-cmd": [
             "yii\\composer\\Installer::postCreateProject"
+        ],
+        "post-update-cmd": [
+            "git submodule update --init --recursive",
+            "commands/shell/wca_db/wca-data/gradlew jarAndSymlink"
         ]
     },
     "extra": {
