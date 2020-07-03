@@ -52,7 +52,7 @@ class MessageExController extends MessageController {
      * @param string $configFile
      * @throws Exception If configuration file does not exists.
      */
-    private function initConfig($configFile)
+    protected function initConfig($configFile)
     {
         parent::initConfig($configFile);
         $this->config = array_merge([
