@@ -31,40 +31,36 @@ class MessageExController extends MessageController {
      */
     public function actionExtractDb($configFile)
     {
-        $configFile = Yii::getAlias($configFile);
-        if (!is_file($configFile)) {
-            throw new Exception("The configuration file does not exist: $configFile");
-        }
+        $this->initConfig($configFile);
 
-        $config = array_merge([
-            'overwrite' => false,
-            'sort' => false,
-        ], require($configFile));
-
-        if (!isset($config['messageSource'], $config['languages'])) {
-            throw new Exception('The configuration file must specify "messageSource" and "languages".');
-        }
-        if (!isset($config['messagePath'])) {
-            throw new Exception('The configuration file must specify "messagePath".');
-        } elseif (!is_dir($config['messagePath'])) {
-            throw new Exception("The message path {$config['messagePath']} is not a valid directory.");
-        }
-        if (empty($config['languages'])) {
-            throw new Exception("Languages cannot be empty.");
-        }
-
-        $dbCategories = $config['messageSource'];
+        $dbCategories = $this->config['messageSource'];
 
         $messages = [];
         foreach ($dbCategories as $category => $dbColumns) {
         	$messages = array_merge_recursive($messages, [$category => $this->extractDbMessages($dbColumns)]);
         }
-        foreach ($config['languages'] as $language) {
-            $dir = $config['messagePath'] . DIRECTORY_SEPARATOR . $language;
+        foreach ($this->config['languages'] as $language) {
+            $dir = $this->config['messagePath'] . DIRECTORY_SEPARATOR . $language;
             if (!is_dir($dir)) {
                 @mkdir($dir);
             }
-            $this->saveMessagesToPHP($messages, $dir, $config['overwrite'], $config['removeUnused'], $config['sort'], $config['markUnused']);
+            $this->saveMessagesToPHP($messages, $dir, $this->config['overwrite'], $this->config['removeUnused'], $this->config['sort'], $this->config['markUnused']);
+        }
+    }
+
+    /**
+     * @param string $configFile
+     * @throws Exception If configuration file does not exists.
+     */
+    private function initConfig($configFile)
+    {
+        parent::initConfig($configFile);
+        $this->config = array_merge([
+            'overwrite' => false,
+            'sort' => false,
+        ], $this->config);
+        if (!isset($this->config['messageSource'])) {
+            throw new Exception('The configuration file must specify "messageSource".');
         }
     }
 
