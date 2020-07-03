@@ -17,8 +17,6 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Kinch' => '',
-    'WCA ID' => '',
     '(was)' => '（過去）',
     '100 Persons' => '100位まで',
     '1000 Persons' => '1000位まで',
@@ -43,8 +41,8 @@ return [
     'Male' => '男性',
     'Name' => '名前',
     'Name parts or WCA ID' => '名あるいはWCA ID（一部）',
-    'Neither' => '無',
     'Next' => '次へ',
+    'Other' => 'その他',
     'Overall' => 'スコア',
     'Person' => '競技者',
     'Persons' => '競技者',
@@ -60,4 +58,6 @@ return [
     'World' => '世界',
     '{count,plural,=1{# person} other{# persons}} matching: "{query}"' => '{count,plural,=0{一致する結果がありません} other{#人見つかりました}}：「{query}」',
     '{days,plural,=1{# day ago} =0{Today} other{# days ago}}' => '{days,plural,=0{今日} other{{days,number,0}日前}}',
+    'Kinch' => '',
+    'WCA ID' => '',
 ];

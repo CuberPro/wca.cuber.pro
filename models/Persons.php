@@ -212,10 +212,14 @@ class Persons extends \yii\db\ActiveRecord {
 
     public static function getGenderName($gender) {
         switch ($gender) {
+            case 'a':
+                return Yii::t('app', 'All');
             case 'm':
                 return Yii::t('app', 'Male');
             case 'f':
                 return Yii::t('app', 'Female');
+            case 'o':
+                return Yii::t('app', 'Other');
             default:
                 return Yii::t('app', 'Unknown');
         }
