@@ -55,10 +55,12 @@ class TranslateController extends Controller {
                         $translation = $regionName;
                     }
                     if (isset($countries[$regionName])) {
-                        $correctTranslation = locale_get_display_region('-' . $countries[$regionName], $langCode);
-                        // handle multiple countries cases
-                        if ($correctTranslation != $translation && $correctTranslation != $countries[$regionName]) {
-                            $translations[$regionName] = $correctTranslation;
+                        $countryCode = $countries[$regionName];
+                        if (!preg_match('/^X[A-JL-Z]$/', $countryCode)) { // except XK for Kosovo
+                            $correctTranslation = locale_get_display_region('-' . $countries[$regionName], $langCode);
+                            if ($correctTranslation != $translation && $correctTranslation != $countries[$regionName]) {
+                                $translations[$regionName] = $correctTranslation;
+                            }
                         }
                     }
                     if (isset(self::$continentCodes[$regionName])) {

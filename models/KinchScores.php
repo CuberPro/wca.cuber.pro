@@ -28,6 +28,7 @@ class KinchScores extends \yii\db\ActiveRecord {
     const GENDER_ALL = 'a';
     const GENDER_MALE = 'm';
     const GENDER_FEMALE = 'f';
+    const GENDER_OTHER = 'o';
     const GENDER_UNKNOWN = '';
 
     const PERSON_RANK_CACHE_KEY_PREFIX = 'kinch_person_';
@@ -239,6 +240,7 @@ class KinchScores extends \yii\db\ActiveRecord {
         switch ($gender) {
             case self::GENDER_FEMALE:
             case self::GENDER_MALE:
+            case self::GENDER_OTHER:
             case self::GENDER_UNKNOWN:
                 break;
             default:

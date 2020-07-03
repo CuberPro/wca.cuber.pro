@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\Continents;
+use app\models\Persons;
 use app\models\Utils;
 
 $this->title = Yii::t('app', 'Kinch Rank - Continents');
@@ -31,10 +32,11 @@ $this->title = Yii::t('app', 'Kinch Rank - Continents');
   <label for="kinchGender"><?= Yii::t('app', 'Gender') ?></label>
   <select id="kinchGender" name="gender" class="form-control">
     <?= Html::renderSelectOptions(Yii::$app->request->get('gender'), [
-      'a' => Yii::t('app', 'All'),
-      'm' => Yii::t('app', 'Male'),
-      'f' => Yii::t('app', 'Female'),
-      '' => Yii::t('app', 'Neither'),
+      'a' => Persons::getGenderName('a'),
+      'm' => Persons::getGenderName('m'),
+      'f' => Persons::getGenderName('f'),
+      'o' => Persons::getGenderName('o'),
+      '' => Persons::getGenderName(''),
     ]) ?>
   </select>
 </div>
