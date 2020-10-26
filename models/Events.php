@@ -55,12 +55,12 @@ class Events extends \yii\db\ActiveRecord
         ];
     }
 
-    private static function getEvents() {
+    private static function getEvents($getAll = false) {
         $c = Yii::$app->cache;
         $eventInfo = $c->get(self::EVENTS_LIST_CACHE_KEY);
         if ($eventInfo === false) {
             $eventInfo = self::find()
-                ->where(['<', 'rank', self::RANK_LIMIT])
+                ->where(['<', 'rank', $getAll ? 10000 : self::RANK_LIMIT])
                 ->orderBy('rank')
             ->all();
             $c->set(self::EVENTS_LIST_CACHE_KEY, $eventInfo);
@@ -78,7 +78,7 @@ class Events extends \yii\db\ActiveRecord
     }
 
     public static function getCellName($eventId) {
-        $eventInfo = self::getEvents();
+        $eventInfo = self::getEvents(true);
         foreach ($eventInfo as $event) {
             if ($event->id === $eventId) {
                 return $event->cellName;
@@ -88,7 +88,7 @@ class Events extends \yii\db\ActiveRecord
     }
 
     public static function getName($eventId) {
-        $eventInfo = self::getEvents();
+        $eventInfo = self::getEvents(true);
         foreach ($eventInfo as $event) {
             if ($event->id === $eventId) {
                 return $event->name;
