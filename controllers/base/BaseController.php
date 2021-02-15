@@ -9,6 +9,7 @@ use yii\helpers\Url;
 class BaseController extends \yii\web\Controller {
 
 	public function init() {
+		parent::init();
 		$this->setLanguage();
 	}
 
