@@ -17,6 +17,10 @@ $config = [
     'language' => array_keys(require(__DIR__ . '/lang.php'))[0],
     'params' => $params,
     'defaultRoute' => 'kinch/countries',
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset',
+    ],
 ];
 
 if (YII_ENV_DEV) {

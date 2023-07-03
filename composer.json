@@ -17,7 +17,10 @@
         "yiisoft/yii2-faker": "*"
     },
     "config": {
-        "process-timeout": 1800
+        "process-timeout": 1800,
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
     },
     "scripts": {
         "post-create-project-cmd": [
@@ -28,6 +31,12 @@
             "(cd commands/shell/wca_db/wca-data && ./gradlew jarAndSymlink)"
         ]
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
     "extra": {
         "yii\\composer\\Installer::postCreateProject": {
             "setPermission": [
@@ -40,10 +49,6 @@
             "generateCookieValidationKey": [
                 "config/web.php"
             ]
-        },
-        "asset-installer-paths": {
-            "npm-asset-library": "vendor/npm",
-            "bower-asset-library": "vendor/bower"
         }
     }
 }
