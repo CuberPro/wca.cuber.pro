@@ -3,8 +3,7 @@
 PATH=/usr/local/bin:$PATH
 
 cd `dirname $0` || exit
-baseUrl='https://www.worldcubeassociation.org/export/results'
-staticPage=''
+staticPage='https://www.worldcubeassociation.org/export/results'
 localDir=`pwd`
 last=$localDir/last
 [ -e $last ] && lastFileName=`cat $last` || lastFileName='aa'
@@ -19,7 +18,8 @@ else
     date=gdate
 fi
 
-fileName=`curl -k --compressed $baseUrl/$staticPage 2>/dev/null|$grep -oP 'WCA_export\d+_\d{8}[0-9TZ]*\.sql\.zip'|head -1`
+fileUrl=`curl -k --compressed $staticPage 2>/dev/null|$grep -oP 'https?:.*?WCA_export\d+_\d{8}[0-9TZ]*\.sql\.zip'|head -1`
+fileName=`echo $fileUrl|$grep -oP 'WCA_export\d+_\d{8}[0-9TZ]*\.sql\.zip'|head -1`
 rm -f $localDir/WCA_export*_`$date --date='15 days ago' +%Y%m%d`*.sql.zip
 
 if [ -z $fileName ] || [[ $lastFileName = $fileName ]]
@@ -28,7 +28,7 @@ then
 fi
 if [ ! -e $localDir/$fileName ]
 then
-    wget -q $baseUrl/$fileName -O $localDir/$fileName || exit
+    wget -q $fileUrl -O $localDir/$fileName || exit
 fi
 
 dbConfig="$localDir/../../../config/common/wcaDb"
