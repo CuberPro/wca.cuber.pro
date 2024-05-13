@@ -67,7 +67,7 @@ AppAsset::register($this);
         <span class="pull-left copyright">&copy; Cuber.Pro <?= date('Y') ?></span>
 
         <span class="pull-right last-update"><?= Yii::t('app', 'Last Update: ') ?>
-            <a href="https://www.worldcubeassociation.org/results/misc/export.html" target="_blank">
+            <a href="https://www.worldcubeassociation.org/export/results" target="_blank">
                 <span><?= @file_get_contents(Yii::$app->getBasePath() . '/commands/shell/wca_db/last') ?></span>
             </a>
         </span>
