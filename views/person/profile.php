@@ -28,7 +28,7 @@ else:
         <?php for ($i = 0, $count = count($person); $i < $count; $i++): ?>
         <tr <?= $i > 0 ? 'class="text-muted"' : '' ?>>
           <td><?php if ($i == 0): ?>
-            <a target="_blank" href="https://www.worldcubeassociation.org/results/p.php?i=<?= $person[$i]['id'] ?>">
+            <a target="_blank" href="https://www.worldcubeassociation.org/persons/<?= $person[$i]['id'] ?>">
               <img src="/img/wca_logo.png" class="wca-logo" title="WCA" alt="WCA"><?= $person[$i]['id'] ?>
             </a>
           <?php else: ?>

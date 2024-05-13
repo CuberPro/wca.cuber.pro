@@ -32,7 +32,7 @@ $this->title = Yii::t('app', 'Persons');
           <tr>
             <td><a href="/person/<?= $person['id'] ?>"><?= $person['name'] ?></a></td>
             <td class="nowrap">
-              <a target="_blank" href="https://www.worldcubeassociation.org/results/p.php?i=<?= $person['id'] ?>">
+              <a target="_blank" href="https://www.worldcubeassociation.org/persons/<?= $person['id'] ?>">
                 <img src="/img/wca_logo.png" class="wca-logo" title="WCA" alt="WCA"><?= $person['id'] ?>
               </a>
             </td>
