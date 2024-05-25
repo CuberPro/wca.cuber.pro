@@ -40,7 +40,7 @@ additionalSqlName='additional.sql'
 yii=$localDir/../../../yii
 
 unzip -qq -o $fileName $sqlName || exit
-cat $sqlName $additionalSqlName | mysql --defaults-extra-file=$dbConf $dbName || exit
+cat $sqlName $additionalSqlName | $grep -v 'sandbox mode' | mysql --defaults-extra-file=$dbConf $dbName || exit
 
 export MYSQL_DBNAME=$dbName
 confidential=`[[ -f $localDir/confidential.local.sh ]] && echo $localDir/confidential.local.sh || echo $localDir/confidential.sh`
