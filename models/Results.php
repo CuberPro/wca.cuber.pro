@@ -98,19 +98,19 @@ class Results extends \yii\db\ActiveRecord
         } elseif ($eventId === '333mbf' || ($eventId === '333mbo' && strlen($result) == 9)) {
             $difference = 99 - substr($result, 0, 2);
             $missed = intval(substr($result, -2));
-            $time = self::formatGMTime(substr($result, 3, -2), true);
+            $time = self::formatTimeByEvent(substr($result, 3, -2), '333mbf');
             $solved = $difference + $missed;
             $attempted = $solved + $missed;
             $time = $solved . '/' . $attempted . ' ' . $time;
         } elseif ($eventId === '333mbo') {
             $solved = 99 - substr($result, 1, 2);
             $attempted = intval(substr($result, 3, 2));
-            $time = self::formatGMTime(substr($result, -5), true);
+            $time = self::formatTimeByEvent(substr($result, -5), '333mbo');
             $time = $solved . '/' . $attempted . ' ' . $time;
         } else {
-            $msecond = substr($result, -2);
+            $hsecond = substr($result, -2);
             $second = substr($result, 0, -2);
-            $time = self::formatGMTime(intval($second)) . '.' . $msecond;
+            $time = self::formatTimeByEvent(intval($second)) . '.' . $hsecond;
         }
         if ($encode) {
             $time = Html::encode($time);
@@ -118,17 +118,22 @@ class Results extends \yii\db\ActiveRecord
         return $time;
     }
 
-    private static function formatGMTime($time, $multi = false) {
-        if ($multi) {
-            if ($time == '99999') {
-                return 'unknown';
-            }
-            if ($time == '3600') {
-                return '60:00';
-            }
-        } else if ($time == 0) {
+    private static function formatTimeByEvent($time, $eventId = '') {
+        $time = intval($time);
+        if ($time === 99999 && substr($eventId, 0, -1) === '333mb') {
+            return 'unknown';
+        }
+        if ($time == 0) {
             return '0';
         }
-        return ltrim(gmdate('G:i:s', $time), '0:');
+
+        $seconds = $time % 60;
+        $minutes = intval($time / 60);
+        if ($eventId === '333mbf') {
+            return sprintf('%d:%02d', $minutes, $seconds);
+        }
+        $hours = intval($minutes / 60);
+        $minutes = $minutes % 60;
+        return ltrim(sprintf('%d:%02d:%02d', $hours, $minutes, $seconds), '0:');
     }
 }
