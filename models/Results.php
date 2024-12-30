@@ -98,14 +98,14 @@ class Results extends \yii\db\ActiveRecord
         } elseif ($eventId === '333mbf' || ($eventId === '333mbo' && strlen($result) == 9)) {
             $difference = 99 - substr($result, 0, 2);
             $missed = intval(substr($result, -2));
-            $time = self::formatTimeByEvent(substr($result, 3, -2), '333mbf');
+            $time = self::formatTimeByEvent(substr($result, 2, -2), $eventId);
             $solved = $difference + $missed;
             $attempted = $solved + $missed;
             $time = $solved . '/' . $attempted . ' ' . $time;
         } elseif ($eventId === '333mbo') {
             $solved = 99 - substr($result, 1, 2);
             $attempted = intval(substr($result, 3, 2));
-            $time = self::formatTimeByEvent(substr($result, -5), '333mbo');
+            $time = self::formatTimeByEvent(substr($result, -5), $eventId);
             $time = $solved . '/' . $attempted . ' ' . $time;
         } else {
             $hsecond = substr($result, -2);
