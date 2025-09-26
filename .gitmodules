@@ -1,3 +1,6 @@
 [submodule "commands/shell/wca_db/wca-data"]
 	path = commands/shell/wca_db/wca-data
 	url = https://github.com/CuberPro/wca-data.git
+[submodule "static/country-flags"]
+	path = static/country-flags
+	url = https://github.com/hampusborgos/country-flags.git
