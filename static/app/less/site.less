@@ -43,11 +43,17 @@ thead th {
 .nowrap {
     white-space: nowrap;
 }
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 
 .region-name,
 .person-name {
     word-break: keep-all;
     .nowrap;
+    .flex;
     span {
         white-space: normal;
     }
